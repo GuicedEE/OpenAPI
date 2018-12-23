@@ -13,6 +13,7 @@ module com.jwebmp.guiced.swagger {
 	requires swagger.integration;
 	requires swagger.models;
 	requires swagger.jaxrs2;
+	requires com.jwebmp.guiced.rest;
 
 	uses IGuicedSwaggerConfiguration;
 

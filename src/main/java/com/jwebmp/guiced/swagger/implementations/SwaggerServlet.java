@@ -8,7 +8,6 @@ import io.swagger.v3.jaxrs2.integration.JaxrsOpenApiContextBuilder;
 import io.swagger.v3.jaxrs2.integration.OpenApiServlet;
 import io.swagger.v3.oas.integration.OpenApiConfigurationException;
 import io.swagger.v3.oas.integration.SwaggerConfiguration;
-import io.swagger.v3.oas.integration.api.OpenApiContext;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 
@@ -40,7 +39,7 @@ public class SwaggerServlet
 		oas.info(info);
 		try
 		{
-			OpenApiContext content = new JaxrsOpenApiContextBuilder()
+			new JaxrsOpenApiContextBuilder()
 					.servletConfig(config)
 					.openApiConfiguration(oasConfig.getConfiguration())
 					.buildContext(true);

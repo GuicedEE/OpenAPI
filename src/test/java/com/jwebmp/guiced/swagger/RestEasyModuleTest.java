@@ -36,7 +36,20 @@ class RestEasyModuleTest
 
 		assertEquals(200, response.statusCode());
 
-	//	undertow.stop();
+		response = client.send(HttpRequest.newBuilder()
+		                                  .GET()
+		                                  .uri(new URI("http://localhost:6004/swagger/"))
+		                                  .build(),
+		                       HttpResponse.BodyHandlers.ofString());
+
+		assertEquals(200, response.statusCode(), "Hello World Rest not available");
+		String resp = response.body()
+		                      .toString();
+		if (!resp.contains("\"openapi\":"))
+		{
+			fail("Open API Swagger not available");
+		}
+		undertow.stop();
 	}
 
 	public static void main(String[] args) throws Exception
