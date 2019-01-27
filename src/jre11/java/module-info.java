@@ -1,7 +1,3 @@
-import com.jwebmp.guiced.swagger.SwaggerModule;
-import com.jwebmp.guiced.swagger.services.IGuicedSwaggerConfiguration;
-import com.jwebmp.guicedservlets.services.IGuiceSiteBinder;
-
 module com.jwebmp.guiced.swagger {
 	exports com.jwebmp.guiced.swagger;
 
@@ -15,8 +11,8 @@ module com.jwebmp.guiced.swagger {
 	requires swagger.jaxrs2;
 	requires com.jwebmp.guiced.rest;
 
-	uses IGuicedSwaggerConfiguration;
+	uses com.jwebmp.guiced.swagger.services.IGuicedSwaggerConfiguration;
 
-	provides IGuiceSiteBinder with SwaggerModule;
+	provides com.jwebmp.guicedservlets.services.IGuiceSiteBinder with com.jwebmp.guiced.swagger.SwaggerModule;
 
 }
