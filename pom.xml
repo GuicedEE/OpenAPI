@@ -38,12 +38,6 @@
         <dependency>
             <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-jaxrs2</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>jackson-module-jaxb-annotations</artifactId>
-                    <groupId>com.fasterxml.jackson.module</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <dependency>
