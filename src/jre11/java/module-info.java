@@ -4,12 +4,10 @@ module com.jwebmp.guiced.swagger {
 	requires com.jwebmp.guicedservlets;
 
 	requires javax.servlet.api;
-	requires swagger.core;
-	requires swagger.annotations;
-	requires swagger.integration;
-	requires swagger.models;
-	requires swagger.jaxrs2;
 	requires com.jwebmp.guiced.rest;
+	requires io.swagger.v3.oas.integration;
+	requires io.swagger.v3.jaxrs2;
+	requires io.swagger.v3.oas.models;
 
 	uses com.jwebmp.guiced.swagger.services.IGuicedSwaggerConfiguration;
 
