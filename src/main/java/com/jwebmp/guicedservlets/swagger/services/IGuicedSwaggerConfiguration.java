@@ -1,8 +1,8 @@
-package com.jwebmp.guiced.swagger.services;
+package com.guicedee.guicedservlets.swagger.services;
 
 
-import com.jwebmp.guiced.swagger.GuicedSwaggerConfig;
-import com.jwebmp.guicedinjection.interfaces.IDefaultService;
+import com.guicedee.guicedservlets.swagger.GuicedSwaggerConfig;
+import com.guicedee.guicedinjection.interfaces.IDefaultService;
 import io.swagger.v3.oas.models.info.Info;
 
 /**

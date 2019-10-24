@@ -1,6 +1,6 @@
-package com.jwebmp.guiced.swagger;
+package com.guicedee.guicedservlets.swagger;
 
-import com.jwebmp.guiced.rest.internal.RestEasyPackageRegistrations;
+import com.guicedee.guicedservlets.rest.internal.JaxRsPackageRegistrations;
 import io.swagger.v3.oas.integration.SwaggerConfiguration;
 
 public class GuicedSwaggerConfig<J extends GuicedSwaggerConfig<J>>
@@ -25,12 +25,12 @@ public class GuicedSwaggerConfig<J extends GuicedSwaggerConfig<J>>
 		{
 			if (configuration.getResourcePackages() == null)
 			{
-				configuration.setResourcePackages(RestEasyPackageRegistrations.getPackageNames());
+				configuration.setResourcePackages(JaxRsPackageRegistrations.getPackageNames());
 			}
 			else
 			{
 				configuration.getResourcePackages()
-				             .addAll(RestEasyPackageRegistrations.getPackageNames());
+				             .addAll(JaxRsPackageRegistrations.getPackageNames());
 			}
 		}
 		return this;

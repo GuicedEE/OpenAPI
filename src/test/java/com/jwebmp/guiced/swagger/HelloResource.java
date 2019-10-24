@@ -1,4 +1,4 @@
-package com.jwebmp.guiced.swagger;
+package com.guicedee.guiced.swagger;
 
 import com.google.inject.Inject;
 

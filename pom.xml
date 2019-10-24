@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.jwebmp.jpms.guicedee.servlets</groupId>
+        <groupId>com.guicedee.servlets</groupId>
         <artifactId>servlets-parent</artifactId>
         <version>0.0.0_0-SNAPSHOT</version>
     </parent>
@@ -19,80 +19,87 @@
     <url>https://github.com/GedMarc/GuicedSwagger</url>
 
     <dependencies>
-        <dependency>
-            <groupId>com.jwebmp.jpms.guicedee.servlets</groupId>
-            <artifactId>guiced-servlets</artifactId>
-            <type>jar</type>
-            </dependency>
 
         <dependency>
-            <groupId>com.jwebmp.jpms.guicedee.servlets</groupId>
+            <groupId>com.guicedee.servlets</groupId>
             <artifactId>guiced-rest-services</artifactId>
-            <type>jar</type>
-            </dependency>
+        </dependency>
 
         <dependency>
-            <groupId>com.jwebmp.jpms.thirdparty</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <type>jar</type>
-            </dependency>
+            <groupId>com.fasterxml.jackson.jaxrs</groupId>
+            <artifactId>jackson-jaxrs-json-provider</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <artifactId>jackson-dataformat-yaml</artifactId>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+        </dependency>
+
 
         <!-- Swagger runtime dependencies -->
         <dependency>
             <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-jaxrs2</artifactId>
-            <type>jar</type>
-            </dependency>
+            <optional>true</optional>
+        </dependency>
 
         <dependency>
-            <groupId>com.jwebmp.jpms.guicedee.servlets</groupId>
-            <artifactId>guiced-undertow</artifactId>
-            <scope>test</scope>
-            <type>jar</type>
-            </dependency>
+            <artifactId>slf4j-api</artifactId>
+            <groupId>org.slf4j</groupId>
+            <version>1.7.26</version>
+            <optional>true</optional>
+        </dependency>
 
         <dependency>
-            <groupId>com.jwebmp.jpms.thirdparty</groupId>
-            <artifactId>guava</artifactId>
+            <groupId>com.guicedee.services</groupId>
+            <artifactId>javassist</artifactId>
             <type>jar</type>
         </dependency>
 
         <dependency>
-            <groupId>com.jwebmp.jpms.thirdparty</groupId>
-            <artifactId>undertow-core</artifactId><type>jar</type>
-            </dependency>
+            <groupId>com.guicedee.servlets</groupId>
+            <artifactId>guiced-undertow</artifactId>
+            <type>jar</type>
+            <scope>test</scope>
+        </dependency>
 
         <dependency>
-            <groupId>com.jwebmp.jpms.thirdparty</groupId>
-            <artifactId>undertow-servlet</artifactId><type>jar</type>
-            </dependency>
-
-        <dependency>
-            <groupId>com.jwebmp.jpms.thirdparty</groupId>
-            <artifactId>commons-logging</artifactId>
+            <groupId>com.guicedee.services</groupId>
+            <artifactId>undertow-servlet</artifactId>
             <scope>test</scope>
             <type>jar</type>
-            </dependency>
+        </dependency>
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId><type>jar</type>
-            </dependency>
+            <artifactId>junit-jupiter-api</artifactId>
+            <scope>test</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-all</artifactId><type>jar</type>
-            </dependency>
+            <artifactId>hamcrest-all</artifactId>
+            <scope>test</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId><type>jar</type>
-            </dependency>
+            <artifactId>assertj-core</artifactId>
+            <scope>test</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId><type>jar</type>
-            </dependency>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+        </dependency>
 
     </dependencies>
 
@@ -110,5 +117,64 @@
         <url>http://jwebmp.com/teamcity</url>
     </ciManagement>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <configuration>
+                    <artifactSet>
+                        <includes>
+                            <include>org.slf4j:slf4j-api:*</include>
+                            <include>io.swagger.core.v3:*:*</include>
+                            <include>org.eclipse.jetty:*:*</include>
+                            <include>com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:*</include>
+                            <include>com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:*</include>
+                            <include>com.fasterxml.jackson.jaxrs:jackson-jaxrs-base:*</include>
+                            <include>org.yaml:snakeyaml:*</include>
+                        </includes>
+                    </artifactSet>
+                    <filters>
+                        <filter>
+                            <artifact>*:*</artifact>
+                            <excludes>
+                                <exclude>module-info.java</exclude>
+                            </excludes>
+                        </filter>
+                    </filters>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.moditect</groupId>
+                <artifactId>moditect-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-module-infos</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>add-module-info</goal>
+                        </goals>
+                        <configuration>
+                            <overwriteExistingFiles>true</overwriteExistingFiles>
+                            <module>
+                                <moduleInfoFile>
+                                    src/moditect/module-info.java
+                                </moduleInfoFile>
+                            </module>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

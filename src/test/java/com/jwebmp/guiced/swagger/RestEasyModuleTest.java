@@ -1,9 +1,9 @@
-package com.jwebmp.guiced.swagger;
+package com.guicedee.guiced.swagger;
 
-import com.jwebmp.logger.LogFactory;
-import com.jwebmp.undertow.JWebMPUndertow;
 import io.undertow.Undertow;
 import org.junit.jupiter.api.Test;
+import com.guicedee.guicedservlets.undertow.GuicedUndertow;
+import com.guicedee.logger.LogFactory;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -13,16 +13,17 @@ import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import java.util.logging.Level;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
-class RestEasyModuleTest
+public class RestEasyModuleTest
 {
 
 	@Test
-	void configureServlets() throws Exception
+	public void configureServlets() throws Exception
 	{
 		LogFactory.configureConsoleColourOutput(Level.FINE);
-		Undertow undertow = JWebMPUndertow.boot("0.0.0.0", 6004);
+		Undertow undertow = GuicedUndertow.boot("0.0.0.0", 6004);
 
 		//Do stuff
 		HttpClient client = HttpClient.newBuilder()
@@ -49,7 +50,7 @@ class RestEasyModuleTest
 		{
 			fail("Open API Swagger not available");
 		}
-		undertow.stop();
+		//undertow.stop();
 	}
 
 	public static void main(String[] args) throws Exception

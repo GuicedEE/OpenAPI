@@ -1,9 +1,10 @@
-package com.jwebmp.guiced.swagger.implementations;
+package com.guicedee.guicedservlets.swagger.implementations;
 
 import com.google.inject.Singleton;
-import com.jwebmp.guiced.swagger.GuicedSwaggerConfig;
-import com.jwebmp.guiced.swagger.services.IGuicedSwaggerConfiguration;
-import com.jwebmp.guicedinjection.GuiceContext;
+import com.guicedee.guicedservlets.rest.RESTContext;
+import com.guicedee.guicedservlets.swagger.GuicedSwaggerConfig;
+import com.guicedee.guicedservlets.swagger.services.IGuicedSwaggerConfiguration;
+import com.guicedee.guicedinjection.GuiceContext;
 import io.swagger.v3.jaxrs2.integration.JaxrsOpenApiContextBuilder;
 import io.swagger.v3.jaxrs2.integration.OpenApiServlet;
 import io.swagger.v3.oas.integration.OpenApiConfigurationException;
@@ -42,6 +43,7 @@ public class SwaggerServlet
 			new JaxrsOpenApiContextBuilder()
 					.servletConfig(config)
 					.openApiConfiguration(oasConfig.getConfiguration())
+					.resourcePackages(RESTContext.getPathServices())
 					.buildContext(true);
 		}
 		catch (OpenApiConfigurationException e)
