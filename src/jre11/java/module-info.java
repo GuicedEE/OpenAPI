@@ -1,4 +1,3 @@
-
 module com.guicedee.guicedservlets.swagger {
 	exports com.guicedee.guicedservlets.swagger;
 
