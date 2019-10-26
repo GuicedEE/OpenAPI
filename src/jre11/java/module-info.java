@@ -1,6 +1,3 @@
-import com.guicedee.guicedservlets.services.IGuiceSiteBinder;
-import com.guicedee.guicedservlets.swagger.SwaggerModule;
-import com.guicedee.guicedservlets.swagger.services.IGuicedSwaggerConfiguration;
 
 module com.guicedee.guicedservlets.swagger {
 	exports com.guicedee.guicedservlets.swagger;
@@ -26,14 +23,14 @@ module com.guicedee.guicedservlets.swagger {
 	//shaded
 	requires static io.swagger.v3.core;
 
-	uses IGuicedSwaggerConfiguration;
+	uses com.guicedee.guicedservlets.swagger.services.IGuicedSwaggerConfiguration;
 
 	opens com.guicedee.guicedservlets.swagger to com.google.guice;
 	opens com.guicedee.guicedservlets.swagger.implementations to com.google.guice;
 	exports com.guicedee.guicedservlets.swagger.services;
 	//opens io.swagger.v3.jaxrs2.integration.resources to com.google.guice,org.apache.cxf;
 
-	provides IGuiceSiteBinder with SwaggerModule;
+	provides com.guicedee.guicedservlets.services.IGuiceSiteBinder with com.guicedee.guicedservlets.swagger.SwaggerModule;
 
 	//uses io.swagger.v3.jaxrs2.ext.OpenAPIExtension;
 	//uses io.swagger.v3.core.converter.ModelConverter;
