@@ -4,7 +4,8 @@ module com.guicedee.guicedservlets.swagger {
 	exports io.swagger.v3.oas.annotations;
 	exports io.swagger.v3.oas.annotations.media;
 	exports io.swagger.v3.oas.annotations.responses;
-
+	exports io.swagger.v3.oas.annotations.info;
+	exports io.swagger.v3.oas.annotations.tags;
 	exports io.swagger.v3.oas.annotations.extensions;
 	exports io.swagger.v3.oas.annotations.headers;
 	exports io.swagger.v3.oas.annotations.links;
@@ -14,6 +15,9 @@ module com.guicedee.guicedservlets.swagger {
 
 	exports com.guicedee.guicedservlets.swagger.services;
 	exports io.swagger.v3.oas.models.info;
+	exports io.swagger.v3.oas.models.servers;
+	exports io.swagger.v3.oas.annotations.enums;
+	exports io.swagger.v3.oas.models.security;
 
 	requires com.guicedee.guicedservlets;
 
@@ -40,6 +44,9 @@ module com.guicedee.guicedservlets.swagger {
 	opens com.guicedee.guicedservlets.swagger to com.google.guice;
 	opens com.guicedee.guicedservlets.swagger.implementations to com.google.guice;
 	opens io.swagger.v3.jaxrs2.integration.resources to com.google.guice, org.apache.cxf;
+	opens com.fasterxml.jackson.jaxrs.json to com.google.guice, org.apache.cxf;
+	opens io.swagger.v3.jaxrs2 to com.google.guice, org.apache.cxf;
+
 	opens io.swagger.v3.core.jackson to com.fasterxml.jackson.databind;
 	opens io.swagger.v3.oas.models to com.fasterxml.jackson.databind;
 	opens io.swagger.v3.oas.models.parameters to com.fasterxml.jackson.databind;
