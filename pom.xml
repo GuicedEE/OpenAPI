@@ -38,7 +38,6 @@
                     <groupId>jakarta.xml.bind</groupId>
                 </exclusion>
             </exclusions>
-            <optional>true</optional>
         </dependency>
 
         <dependency>
@@ -132,8 +131,8 @@
                             <include>io.swagger.core.v3:*:*</include>
                             <include>org.eclipse.jetty:*:*</include>
                             <include>com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:*</include>
-                            <include>com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:*</include>
-                            <include>com.fasterxml.jackson.jaxrs:jackson-jaxrs-base:*</include>
+                            <!--<include>com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:*</include>-->
+                            <!--<include>com.fasterxml.jackson.jaxrs:jackson-jaxrs-base:*</include>-->
                             <include>org.yaml:snakeyaml:*</include>
                         </includes>
                     </artifactSet>

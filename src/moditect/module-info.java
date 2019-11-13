@@ -33,6 +33,7 @@ module com.guicedee.guicedservlets.swagger {
 	requires org.apache.commons.lang3;
 	requires com.fasterxml.jackson.databind;
 	requires com.fasterxml.jackson.datatype.jsr310;
+	requires com.fasterxml.jackson.jaxrs.json;
 	requires io.github.classgraph;
 	requires java.ws.rs;
 
@@ -44,7 +45,7 @@ module com.guicedee.guicedservlets.swagger {
 	opens com.guicedee.guicedservlets.swagger to com.google.guice;
 	opens com.guicedee.guicedservlets.swagger.implementations to com.google.guice;
 	opens io.swagger.v3.jaxrs2.integration.resources to com.google.guice, org.apache.cxf;
-	opens com.fasterxml.jackson.jaxrs.json to com.google.guice, org.apache.cxf;
+	//opens com.fasterxml.jackson.jaxrs.json to com.google.guice, org.apache.cxf;
 	opens io.swagger.v3.jaxrs2 to com.google.guice, org.apache.cxf;
 
 	opens io.swagger.v3.core.jackson to com.fasterxml.jackson.databind;
