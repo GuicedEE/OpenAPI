@@ -26,18 +26,8 @@
         </dependency>
 
         <dependency>
-            <groupId>com.fasterxml.jackson.jaxrs</groupId>
+            <groupId>com.guicedee.services</groupId>
             <artifactId>jackson-jaxrs-json-provider</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>jakarta.activation-api</artifactId>
-                    <groupId>jakarta.activation</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>jakarta.xml.bind-api</artifactId>
-                    <groupId>jakarta.xml.bind</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <dependency>
