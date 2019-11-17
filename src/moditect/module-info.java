@@ -34,6 +34,7 @@ module com.guicedee.guicedservlets.swagger {
 	requires com.fasterxml.jackson.databind;
 	requires com.fasterxml.jackson.datatype.jsr310;
 	requires com.fasterxml.jackson.jaxrs.json;
+
 	requires io.github.classgraph;
 	requires java.ws.rs;
 

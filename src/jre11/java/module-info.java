@@ -19,6 +19,8 @@ module com.guicedee.guicedservlets.swagger {
 
 	requires java.ws.rs;
 
+	requires com.fasterxml.jackson.jaxrs.json;
+
 	//shaded
 	requires static io.swagger.v3.core;
 
