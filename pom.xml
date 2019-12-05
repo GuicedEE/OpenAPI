@@ -108,42 +108,23 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <configuration>
-                    <createDependencyReducedPom>false</createDependencyReducedPom>
-                    <createSourcesJar>true</createSourcesJar>
-                    <shadeSourcesContent>true</shadeSourcesContent>
-                    <shadeTestJar>true</shadeTestJar>
-                    <keepDependenciesWithProvidedScope>false</keepDependenciesWithProvidedScope>
-
-                    <artifactSet>
-                        <includes>
-                            <include>org.slf4j:slf4j-api:*</include>
-                            <include>io.swagger.core.v3:*:*</include>
-                            <include>org.eclipse.jetty:*:*</include>
-                            <include>com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:*</include>
-                            <!--<include>com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:*</include>-->
-                            <!--<include>com.fasterxml.jackson.jaxrs:jackson-jaxrs-base:*</include>-->
-                            <include>org.yaml:snakeyaml:*</include>
-                        </includes>
-                    </artifactSet>
-                    <filters>
-                        <filter>
-                            <artifact>*:*</artifact>
-                            <excludes>
-                                <exclude>module-info.java</exclude>
-                            </excludes>
-                        </filter>
-                    </filters>
-                    <transformers>
-                        <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
-                    </transformers>
-                </configuration>
                 <executions>
                     <execution>
                         <phase>package</phase>
                         <goals>
                             <goal>shade</goal>
                         </goals>
+                        <configuration>
+                            <artifactSet>
+                                <includes>
+                                    <include>org.slf4j:slf4j-api:*</include>
+                                    <include>io.swagger.core.v3:*:*</include>
+                                    <include>org.eclipse.jetty:*:*</include>
+                                    <include>com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:*</include>
+                                    <include>org.yaml:snakeyaml:*</include>
+                                </includes>
+                            </artifactSet>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
