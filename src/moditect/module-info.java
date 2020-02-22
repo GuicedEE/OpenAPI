@@ -37,6 +37,7 @@ module com.guicedee.guicedservlets.swagger {
 
 	requires io.github.classgraph;
 	requires java.ws.rs;
+	requires java.validation;
 
 	//shaded
 	requires static io.swagger.v3.core;
