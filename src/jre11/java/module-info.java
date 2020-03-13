@@ -26,10 +26,8 @@ module com.guicedee.guicedservlets.swagger {
 
 	uses com.guicedee.guicedservlets.swagger.services.IGuicedSwaggerConfiguration;
 
-	opens com.guicedee.guicedservlets.swagger to com.google.guice;
-	opens com.guicedee.guicedservlets.swagger.implementations to com.google.guice;
 	exports com.guicedee.guicedservlets.swagger.services;
-	//opens io.swagger.v3.jaxrs2.integration.resources to com.google.guice,org.apache.cxf;
+	//opens io.swagger.v3.jaxrs2.integration.resources to org.apache.cxf;
 
 	provides com.guicedee.guicedservlets.services.IGuiceSiteBinder with com.guicedee.guicedservlets.swagger.SwaggerModule;
 

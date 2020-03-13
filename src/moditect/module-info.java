@@ -44,11 +44,9 @@ module com.guicedee.guicedservlets.swagger {
 
 	uses com.guicedee.guicedservlets.swagger.services.IGuicedSwaggerConfiguration;
 
-	opens com.guicedee.guicedservlets.swagger to com.google.guice;
-	opens com.guicedee.guicedservlets.swagger.implementations to com.google.guice;
-	opens io.swagger.v3.jaxrs2.integration.resources to com.google.guice, org.apache.cxf;
-	//opens com.fasterxml.jackson.jaxrs.json to com.google.guice, org.apache.cxf;
-	opens io.swagger.v3.jaxrs2 to com.google.guice, org.apache.cxf;
+	opens io.swagger.v3.jaxrs2.integration.resources to  org.apache.cxf;
+	//opens com.fasterxml.jackson.jaxrs.json to  org.apache.cxf;
+	opens io.swagger.v3.jaxrs2 to  org.apache.cxf;
 
 	opens io.swagger.v3.core.jackson to com.fasterxml.jackson.databind;
 	opens io.swagger.v3.oas.models to com.fasterxml.jackson.databind;
