@@ -19,25 +19,13 @@ module com.guicedee.guicedservlets.swagger {
 	exports io.swagger.v3.oas.annotations.enums;
 	exports io.swagger.v3.oas.models.security;
 
-	requires com.guicedee.guicedservlets;
-
-	requires javax.servlet.api;
-	requires com.guicedee.guicedservlets.rest;
-
+	requires transitive com.guicedee.guicedservlets.rest;
 	requires com.fasterxml.jackson.datatype.jdk8;
 
 	requires static io.swagger.v3.oas.integration;
 	requires static io.swagger.v3.jaxrs2;
 	requires static io.swagger.v3.oas.models;
-
-	requires org.apache.commons.lang3;
-	requires com.fasterxml.jackson.databind;
 	requires com.fasterxml.jackson.datatype.jsr310;
-	requires com.fasterxml.jackson.jaxrs.json;
-
-	requires io.github.classgraph;
-	requires java.ws.rs;
-	requires java.validation;
 
 	//shaded
 	requires static io.swagger.v3.core;
