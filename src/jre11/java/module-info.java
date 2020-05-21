@@ -11,7 +11,6 @@ module com.guicedee.guicedservlets.swagger {
 	requires static io.swagger.v3.oas.models;
 
 	requires org.apache.commons.lang3;
-	requires com.fasterxml.jackson.datatype.jsr310;
 
 	//shaded
 	requires static io.swagger.v3.core;

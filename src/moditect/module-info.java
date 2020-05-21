@@ -20,7 +20,6 @@ module com.guicedee.guicedservlets.swagger {
 	exports io.swagger.v3.oas.models.security;
 
 	requires transitive com.guicedee.guicedservlets.rest;
-	requires transitive com.fasterxml.jackson.datatype.jsr310;
 
 
 	uses com.guicedee.guicedservlets.swagger.services.IGuicedSwaggerConfiguration;
