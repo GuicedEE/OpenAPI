@@ -36,6 +36,7 @@ module com.guicedee.guicedservlets.swagger {
 	opens io.swagger.v3.oas.models.media to com.fasterxml.jackson.databind;
 	opens io.swagger.v3.oas.models.responses to com.fasterxml.jackson.databind;
 	opens io.swagger.v3.oas.models.tags to com.fasterxml.jackson.databind;
+	opens io.swagger.v3.oas.models.info to com.fasterxml.jackson.databind;
 
 	provides com.guicedee.guicedservlets.services.IGuiceSiteBinder with com.guicedee.guicedservlets.swagger.SwaggerModule;
 
