@@ -3,7 +3,6 @@ package com.guicedee.guicedservlets.swagger.jsonoverrides;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import io.swagger.v3.core.util.ObjectMapperFactory;
 
 import static com.guicedee.guicedinjection.interfaces.ObjectBinderKeys.*;
 

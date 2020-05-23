@@ -29,6 +29,12 @@
             <groupId>com.fasterxml.jackson.jaxrs</groupId>
             <artifactId>jackson-jaxrs-json-provider</artifactId>
         </dependency>
+        <!--
+                <dependency>
+                    <artifactId>jackson-dataformat-yaml</artifactId>
+                    <groupId>com.fasterxml.jackson.dataformat</groupId>
+                    <optional>true</optional>
+                </dependency>-->
 
         <!-- Swagger runtime dependencies -->
         <dependency>
@@ -44,6 +50,13 @@
             <optional>true</optional>
         </dependency>
 
+        <!--       <dependency>
+                   <groupId>org.yaml</groupId>
+                   <artifactId>snakeyaml</artifactId>
+                   <version>${snakeyaml.version}</version>
+                   <optional>true</optional>
+               </dependency>
+       -->
         <dependency>
             <groupId>com.guicedee.services</groupId>
             <artifactId>javassist</artifactId>
