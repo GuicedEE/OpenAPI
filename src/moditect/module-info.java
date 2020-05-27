@@ -28,6 +28,20 @@ module com.guicedee.guicedservlets.swagger {
 	opens io.swagger.v3.jaxrs2.integration.resources to com.google.guice, org.apache.cxf;
 	opens io.swagger.v3.jaxrs2 to com.google.guice, org.apache.cxf;
 
+	opens io.swagger.v3.oas.integration to com.fasterxml.jackson.databind;
+	opens io.swagger.v3.oas.annotations to com.fasterxml.jackson.databind;
+	opens io.swagger.v3.oas.annotations.media to com.fasterxml.jackson.databind;
+	opens io.swagger.v3.oas.annotations.responses to com.fasterxml.jackson.databind;
+	opens io.swagger.v3.oas.annotations.info to com.fasterxml.jackson.databind;
+	opens io.swagger.v3.oas.annotations.tags to com.fasterxml.jackson.databind;
+	opens io.swagger.v3.oas.annotations.extensions to com.fasterxml.jackson.databind;
+	opens io.swagger.v3.oas.annotations.headers to com.fasterxml.jackson.databind;
+	opens io.swagger.v3.oas.annotations.links to com.fasterxml.jackson.databind;
+	opens io.swagger.v3.oas.annotations.servers to com.fasterxml.jackson.databind;
+	opens io.swagger.v3.oas.annotations.security to com.fasterxml.jackson.databind;
+	opens io.swagger.v3.oas.annotations.parameters to com.fasterxml.jackson.databind;
+	opens io.swagger.v3.oas.annotations.enums to com.fasterxml.jackson.databind;
+
 	opens io.swagger.v3.core.jackson to com.fasterxml.jackson.databind;
 	opens io.swagger.v3.oas.models to com.fasterxml.jackson.databind;
 	opens io.swagger.v3.oas.models.parameters to com.fasterxml.jackson.databind;
