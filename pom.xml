@@ -40,6 +40,12 @@
         <dependency>
             <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-jaxrs2</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jackson-datatype-jsr310</artifactId>
+                    <groupId>com.fasterxml.jackson.datatype</groupId>
+                </exclusion>
+            </exclusions>
             <optional>true</optional>
         </dependency>
 
@@ -50,13 +56,13 @@
             <optional>true</optional>
         </dependency>
 
-        <!--       <dependency>
-                   <groupId>org.yaml</groupId>
-                   <artifactId>snakeyaml</artifactId>
-                   <version>${snakeyaml.version}</version>
-                   <optional>true</optional>
-               </dependency>
-       -->
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>${snakeyaml.version}</version>
+            <optional>true</optional>
+        </dependency>
+
         <dependency>
             <groupId>com.guicedee.services</groupId>
             <artifactId>javassist</artifactId>
@@ -67,13 +73,11 @@
             <groupId>com.guicedee</groupId>
             <artifactId>guiced-undertow</artifactId>
             <type>jar</type>
-            <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>com.guicedee.services</groupId>
             <artifactId>undertow-servlet</artifactId>
-            <scope>test</scope>
             <type>jar</type>
         </dependency>
 
@@ -92,6 +96,89 @@
         </dependency>
 
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>jakarta.jws</groupId>
+                <artifactId>jakarta.jws-api</artifactId>
+                <version>1.1.1</version>
+            </dependency>
+
+
+            <!-- Jackson Support-->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+                <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${jackson.version}</version>
+                <type>jar</type>
+            </dependency>
+
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.module</groupId>
+                <artifactId>jackson-module-jaxb-annotations</artifactId>
+                <version>${jackson.version}</version>
+                <type>jar</type>
+                <exclusions>
+                    <exclusion>
+                        <groupId>jakarta.xml.bind</groupId>
+                        <artifactId>jakarta.xml.bind-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>jakarta.activation</groupId>
+                        <artifactId>jakarta.activation-api</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${jackson.version}</version>
+                <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.jaxrs</groupId>
+                <artifactId>jackson-jaxrs-json-provider</artifactId>
+                <version>${jackson.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>jakarta.xml.bind-api</artifactId>
+                        <groupId>jakarta.xml.bind</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>jakarta.activation-api</artifactId>
+                        <groupId>jakarta.activation</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <artifactId>jackson-dataformat-yaml</artifactId>
+                <groupId>com.fasterxml.jackson.dataformat</groupId>
+                <version>${jackson.version}</version>
+                <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-jdk8</artifactId>
+                <version>${jackson.version}</version>
+                <type>jar</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <scm>
         <url>https://github.com/GedMarc/GuicedSwagger.git</url>

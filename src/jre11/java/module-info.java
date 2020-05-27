@@ -15,6 +15,8 @@ module com.guicedee.guicedservlets.swagger {
 	//shaded
 	requires static io.swagger.v3.core;
 
+	requires java.ws.rs;
+
 	uses com.guicedee.guicedservlets.swagger.services.IGuicedSwaggerConfiguration;
 
 	opens com.guicedee.guicedservlets.swagger to com.google.guice;
