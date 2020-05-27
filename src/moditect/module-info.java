@@ -1,4 +1,4 @@
-open module com.guicedee.guicedservlets.swagger {
+module com.guicedee.guicedservlets.swagger {
 	exports com.guicedee.guicedservlets.swagger;
 
 	exports io.swagger.v3.oas.annotations;
@@ -22,7 +22,7 @@ open module com.guicedee.guicedservlets.swagger {
 	requires transitive com.guicedee.guicedservlets.rest;
 
 	uses com.guicedee.guicedservlets.swagger.services.IGuicedSwaggerConfiguration;
-/*
+
 	opens com.guicedee.guicedservlets.swagger to com.google.guice;
 	opens com.guicedee.guicedservlets.swagger.implementations to com.google.guice;
 	opens io.swagger.v3.jaxrs2.integration.resources to com.google.guice, org.apache.cxf;
@@ -39,7 +39,7 @@ open module com.guicedee.guicedservlets.swagger {
 	opens io.swagger.v3.oas.models.callbacks to com.fasterxml.jackson.databind;
 	opens io.swagger.v3.oas.models.links to com.fasterxml.jackson.databind;
 	opens io.swagger.v3.oas.models.security to com.fasterxml.jackson.databind;
-	opens io.swagger.v3.oas.models.servers to com.fasterxml.jackson.databind;*/
+	opens io.swagger.v3.oas.models.servers to com.fasterxml.jackson.databind;
 
 	provides com.guicedee.guicedservlets.services.IGuiceSiteBinder with com.guicedee.guicedservlets.swagger.SwaggerModule;
 
