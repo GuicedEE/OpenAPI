@@ -26,6 +26,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.guicedee.services</groupId>
+            <artifactId>sl4j</artifactId>
+            <type>jar</type>
+        </dependency>
+
+        <dependency>
             <groupId>com.fasterxml.jackson.jaxrs</groupId>
             <artifactId>jackson-jaxrs-json-provider</artifactId>
         </dependency>

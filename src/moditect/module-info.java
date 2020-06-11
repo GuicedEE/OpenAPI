@@ -21,6 +21,8 @@ module com.guicedee.guicedservlets.swagger {
 
 	requires transitive com.guicedee.guicedservlets.rest;
 
+	requires org.slf4j;
+
 	uses com.guicedee.guicedservlets.swagger.services.IGuicedSwaggerConfiguration;
 
 	opens com.guicedee.guicedservlets.swagger to com.google.guice;
