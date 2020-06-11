@@ -50,13 +50,6 @@
         </dependency>
 
         <dependency>
-            <artifactId>slf4j-api</artifactId>
-            <groupId>org.slf4j</groupId>
-            <version>${sl4j.version}</version>
-            <optional>true</optional>
-        </dependency>
-
-        <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
             <version>${snakeyaml.version}</version>
@@ -208,7 +201,6 @@
                         <configuration>
                             <artifactSet>
                                 <includes>
-                                    <include>org.slf4j:slf4j-api:*</include>
                                     <include>io.swagger.core.v3:*:*</include>
                                     <include>org.eclipse.jetty:*:*</include>
                                     <include>com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:*</include>
@@ -216,10 +208,6 @@
                                 </includes>
                             </artifactSet>
                             <relocations>
-                                <relocation>
-                                    <pattern>org.slf4j</pattern>
-                                    <shadedPattern>io.swagger.v3.sl4j</shadedPattern>
-                                </relocation>
                                 <relocation>
                                     <pattern>com.guicedee.guicedservlets.swagger.jsonoverrides</pattern>
                                     <shadedPattern>io.swagger.v3.core.util</shadedPattern>
