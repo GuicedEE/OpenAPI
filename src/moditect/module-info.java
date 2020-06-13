@@ -11,6 +11,9 @@ module com.guicedee.guicedservlets.swagger {
 	exports io.swagger.v3.oas.annotations.links;
 	exports io.swagger.v3.oas.annotations.servers;
 	exports io.swagger.v3.oas.annotations.security;
+
+	opens io.swagger.v3.oas.models.examples to com.fasterxml.jackson.databind;
+
 	exports io.swagger.v3.oas.annotations.parameters;
 
 	exports com.guicedee.guicedservlets.swagger.services;
