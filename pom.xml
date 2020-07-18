@@ -27,7 +27,7 @@
 
         <dependency>
             <groupId>com.guicedee.services</groupId>
-            <artifactId>sl4j</artifactId>
+            <artifactId>slf4j</artifactId>
             <type>jar</type>
         </dependency>
 
