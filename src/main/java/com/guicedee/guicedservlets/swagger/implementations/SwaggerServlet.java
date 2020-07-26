@@ -2,6 +2,7 @@ package com.guicedee.guicedservlets.swagger.implementations;
 
 import com.google.inject.Singleton;
 import com.guicedee.guicedinjection.GuiceContext;
+import com.guicedee.guicedinjection.interfaces.IDefaultService;
 import com.guicedee.guicedservlets.rest.RESTContext;
 import com.guicedee.guicedservlets.swagger.GuicedSwaggerConfig;
 import com.guicedee.guicedservlets.swagger.services.IGuicedSwaggerConfiguration;
@@ -21,7 +22,7 @@ import java.util.Set;
 	@Override public void init(ServletConfig config) throws ServletException {
 		OpenAPI oas = new OpenAPI();
 
-		Set<IGuicedSwaggerConfiguration> services = GuiceContext.instance().getLoader(IGuicedSwaggerConfiguration.class, ServiceLoader.load(IGuicedSwaggerConfiguration.class));
+		Set<IGuicedSwaggerConfiguration> services = IDefaultService.loaderToSet(ServiceLoader.load(IGuicedSwaggerConfiguration.class));
 
 		GuicedSwaggerConfig<?> oasConfig = new GuicedSwaggerConfig<>();
 		oasConfig.setConfiguration(new SwaggerConfiguration());

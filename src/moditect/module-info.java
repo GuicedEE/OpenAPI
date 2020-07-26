@@ -1,4 +1,4 @@
-module com.guicedee.guicedservlets.swagger {
+module com.guicedee.guicedservlets.openapi {
 	exports com.guicedee.guicedservlets.swagger;
 
 	exports io.swagger.v3.oas.annotations;

@@ -11,18 +11,17 @@ import com.guicedee.guicedservlets.services.IGuiceSiteBinder;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SwaggerModule
+public class OpenAPIModule
 		implements IGuiceSiteBinder<GuiceSiteInjectorModule>
 {
+	private static String path = "/openapi";
 
-	private static String path = "/swagger";
-
-	public SwaggerModule()
+	public OpenAPIModule()
 	{
 		//Not required
 	}
 
-	public SwaggerModule(final String path)
+	public OpenAPIModule(final String path)
 	{
 		this.path = path;
 	}
@@ -34,7 +33,7 @@ public class SwaggerModule
 
 	public static void setPath(String path)
 	{
-		SwaggerModule.path = path;
+		OpenAPIModule.path = path;
 	}
 
 	@Override

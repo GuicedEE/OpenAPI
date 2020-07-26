@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>com.guicedee.servlets</groupId>
-    <artifactId>guiced-swagger</artifactId>
+    <artifactId>guiced-openapi</artifactId>
     <packaging>jar</packaging>
 
     <name>Guiced Swagger</name>
