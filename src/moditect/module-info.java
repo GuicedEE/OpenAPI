@@ -60,7 +60,7 @@ module com.guicedee.guicedservlets.openapi {
 	opens io.swagger.v3.oas.models.security to com.fasterxml.jackson.databind;
 	opens io.swagger.v3.oas.models.servers to com.fasterxml.jackson.databind;
 
-	provides com.guicedee.guicedservlets.services.IGuiceSiteBinder with com.guicedee.guicedservlets.swagger.SwaggerModule;
+	provides com.guicedee.guicedservlets.services.IGuiceSiteBinder with com.guicedee.guicedservlets.swagger.OpenAPIModule;
 
 	uses io.swagger.v3.jaxrs2.ext.OpenAPIExtension;
 	uses io.swagger.v3.core.converter.ModelConverter;
