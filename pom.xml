@@ -268,6 +268,10 @@
                                     <pattern>com.guicedee.guicedservlets.swagger.jsonoverrides</pattern>
                                     <shadedPattern>io.swagger.v3.core.util</shadedPattern>
                                 </relocation>
+                                <relocation>
+                                    <pattern>com.guicedee.guicedservlets.swagger.schemaoverrides</pattern>
+                                    <shadedPattern>io.swagger.v3.oas.models.media</shadedPattern>
+                                </relocation>
                             </relocations>
                         </configuration>
                     </execution>
