@@ -37,7 +37,7 @@ import java.util.Objects;
  */
 
 public class Schema<T> {
-	protected T _default;
+	@JsonProperty("default") protected T _default;
 	protected T example = null;
 	@JsonProperty("enum") protected List<T> _enum = null;
 	private String name;
