@@ -270,7 +270,7 @@
                                 </relocation>
                                 <relocation>
                                     <pattern>com.guicedee.guicedservlets.swagger.schemaoverrides</pattern>
-                                    <shadedPattern>io.swagger.v3.oas.models.media</shadedPattern>
+                                    <shadedPattern>io.swagger.v3.oas.models</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>

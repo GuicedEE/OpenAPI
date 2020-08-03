@@ -1,4 +1,4 @@
-package io.swagger.v3.core.util;
+package com.guicedee.guicedservlets.swagger.jsonoverrides;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonFactory;
@@ -15,6 +15,7 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
 import com.guicedee.guicedinjection.GuiceContext;
 import com.guicedee.guicedinjection.interfaces.ObjectBinderKeys;
+import com.guicedee.guicedinjection.json.LaxJsonModule;
 import io.swagger.v3.core.jackson.SchemaSerializer;
 import io.swagger.v3.core.jackson.mixin.ComponentsMixin;
 import io.swagger.v3.core.jackson.mixin.DateSchemaMixin;
@@ -22,6 +23,7 @@ import io.swagger.v3.core.jackson.mixin.ExtensionsMixin;
 import io.swagger.v3.core.jackson.mixin.OpenAPIMixin;
 import io.swagger.v3.core.jackson.mixin.OperationMixin;
 import io.swagger.v3.core.jackson.mixin.SchemaMixin;
+import io.swagger.v3.core.util.DeserializationModule;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.ExternalDocumentation;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -74,7 +76,7 @@ public class ObjectMapperFactory {
     }
 
     private static ObjectMapper create(JsonFactory jsonFactory) {
-        ObjectMapper mapper = GuiceContext.get(ObjectBinderKeys.DefaultObjectMapper);
+        ObjectMapper mapper = new ObjectMapper(jsonFactory);
 
         // handle ref schema serialization skipping all other props
         mapper.registerModule(new SimpleModule() {
@@ -96,6 +98,8 @@ public class ObjectMapperFactory {
 
         Module deserializerModule = new DeserializationModule();
         mapper.registerModule(deserializerModule);
+
+        mapper.registerModule(new LaxJsonModule());
 
         Map<Class<?>, Class<?>> sourceMixins = new LinkedHashMap<>();
 
