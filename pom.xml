@@ -115,7 +115,7 @@
                             <artifactSet>
                                 <includes>
                                     <include>io.swagger.core.v3:*:*</include>
-                                    <include>org.eclipse.jetty:*:*</include>
+                                    <!--<include>org.eclipse.jetty:*:*</include>-->
                                     <include>com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:*</include>
                                     <include>org.yaml:snakeyaml:*</include>
                                 </includes>
