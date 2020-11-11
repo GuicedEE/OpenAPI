@@ -27,61 +27,17 @@
 
         <dependency>
             <groupId>com.guicedee.services</groupId>
-            <artifactId>slf4j</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.fasterxml.jackson.jaxrs</groupId>
-            <artifactId>jackson-jaxrs-json-provider</artifactId>
-        </dependency>
-
-        <dependency>
-            <artifactId>jackson-dataformat-yaml</artifactId>
-            <groupId>com.fasterxml.jackson.dataformat</groupId>
-            <optional>true</optional>
-        </dependency>
-
-        <!-- Swagger runtime dependencies -->
-        <dependency>
-            <groupId>io.swagger.core.v3</groupId>
-            <artifactId>swagger-jaxrs2</artifactId>
-            <optional>true</optional>
-        </dependency>
-
-        <dependency>
-            <groupId>org.yaml</groupId>
-            <artifactId>snakeyaml</artifactId>
-            <optional>true</optional>
+            <artifactId>swagger</artifactId>
         </dependency>
 
         <dependency>
             <groupId>com.guicedee.services</groupId>
-            <artifactId>javassist</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.guicedee</groupId>
-            <artifactId>guiced-undertow</artifactId>
+            <artifactId>jakarta.servlet-api</artifactId>
         </dependency>
 
         <dependency>
             <groupId>com.guicedee.services</groupId>
-            <artifactId>undertow-servlet</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-jdk8</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.guicedee.services</groupId>
-            <artifactId>commons-lang3</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.guicedee.servlets</groupId>
-            <artifactId>guiced-servlets</artifactId>
+            <artifactId>jakarta.persistence-api</artifactId>
         </dependency>
 
     </dependencies>
@@ -99,78 +55,6 @@
         <system>TeamCity</system>
         <url>http://jwebmp.com/teamcity</url>
     </ciManagement>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <artifactSet>
-                                <includes>
-                                    <include>io.swagger.core.v3:*:*</include>
-                                    <!--<include>org.eclipse.jetty:*:*</include>-->
-                                    <include>com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:*</include>
-                                    <include>org.yaml:snakeyaml:*</include>
-                                </includes>
-                            </artifactSet>
-                            <filters>
-                                <filter>
-                                    <artifact>*:*</artifact>
-                                    <excludes>
-                                        <exclude>module-info.java</exclude>
-                                        <exclude>META-INF/*.SF</exclude>
-                                        <exclude>META-INF/*.DSA</exclude>
-                                        <exclude>META-INF/*.RSA</exclude>
-                                        <!--<exclude>/META-INF/services</exclude>-->
-                                    </excludes>
-                                </filter>
-                            </filters>
-                            <relocations>
-                                <relocation>
-                                    <pattern>com.guicedee.guicedservlets.swagger.jsonoverrides</pattern>
-                                    <shadedPattern>io.swagger.v3.core.util</shadedPattern>
-                                </relocation>
-                                <relocation>
-                                    <pattern>com.guicedee.guicedservlets.swagger.schemaoverrides</pattern>
-                                    <shadedPattern>io.swagger.v3.oas.models</shadedPattern>
-                                </relocation>
-                            </relocations>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.moditect</groupId>
-                <artifactId>moditect-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>add-module-infos</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>add-module-info</goal>
-                        </goals>
-                        <configuration>
-                            <overwriteExistingFiles>true</overwriteExistingFiles>
-                            <module>
-                                <moduleInfoFile>
-                                    src/moditect/module-info.java
-                                </moduleInfoFile>
-                            </module>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
-
 
     <profiles>
         <profile>
