@@ -2,7 +2,7 @@ module com.guicedee.guicedservlets.openapi {
 	requires transitive com.guicedee.services.openapi;
 	requires transitive com.guicedee.guicedservlets.rest;
 
-	requires java.xml.bind;
+	requires jakarta.xml.bind;
 	requires java.servlet;
 
 	exports com.guicedee.guicedservlets.swagger;
