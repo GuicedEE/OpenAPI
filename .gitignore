@@ -15,6 +15,7 @@ Thumbs.db
 **/*.db
 **/*.project
 **/*.factorypath
+**/*.flattened-pom.xml
 **/*.classpath
 /.idea/
 /dependency-reduced-pom.xml
