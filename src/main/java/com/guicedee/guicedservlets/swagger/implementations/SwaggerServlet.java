@@ -15,8 +15,8 @@ import io.swagger.v3.oas.models.info.Info;
 
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
-import java.util.ServiceLoader;
-import java.util.Set;
+
+import java.util.*;
 
 @Singleton public class SwaggerServlet extends OpenApiServlet {
 	@Override public void init(ServletConfig config) throws ServletException {
@@ -33,7 +33,10 @@ import java.util.Set;
 		}
 		oas.info(info);
 		try {
-			new JaxrsOpenApiContextBuilder().servletConfig(config).openApiConfiguration(oasConfig.getConfiguration()).resourcePackages(RESTContext.getPathServices())
+			List<String> resources = RESTContext.getPathServices();
+			Set<String> setted = new LinkedHashSet<String>();
+			setted.addAll(resources);
+			new JaxrsOpenApiContextBuilder().servletConfig(config).openApiConfiguration(oasConfig.getConfiguration()).resourcePackages(setted)
 					.buildContext(true);
 		} catch (OpenApiConfigurationException e) {
 			throw new ServletException(e.getMessage(), e);
