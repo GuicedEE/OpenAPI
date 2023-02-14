@@ -26,7 +26,6 @@ import java.util.*;
 
 		GuicedSwaggerConfig<?> oasConfig = new GuicedSwaggerConfig<>();
 		oasConfig.setConfiguration(new SwaggerConfiguration());
-
 		Info info = new Info();
 		for (IGuicedSwaggerConfiguration service : services) {
 			oasConfig = service.config(oasConfig, info);
