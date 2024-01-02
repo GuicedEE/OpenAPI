@@ -1,4 +1,4 @@
-package com.guicedee.guiced.swagger;
+package com.jwebmp.guiced.openapi.tests;
 
 public interface Greeter
 {
