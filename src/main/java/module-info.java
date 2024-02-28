@@ -9,7 +9,6 @@ module com.guicedee.guicedservlets.openapi {
 	
 	requires transitive com.guicedee.guicedservlets.rest;
 	requires com.guicedee.client;
-	requires com.guicedee.guicedinjection;
 	
 	exports com.guicedee.guicedservlets.openapi;
 	exports com.guicedee.guicedservlets.openapi.services;

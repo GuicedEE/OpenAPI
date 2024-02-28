@@ -1,6 +1,6 @@
 package com.guicedee.guicedservlets.openapi;
 
-import com.guicedee.guicedinjection.GuiceContext;
+import com.guicedee.client.*;
 import com.guicedee.guicedservlets.rest.annotations.RestFeature;
 import com.guicedee.guicedservlets.openapi.services.IGuicedSwaggerConfiguration;
 import org.apache.cxf.jaxrs.openapi.OpenApiFeature;
@@ -19,7 +19,7 @@ public class OpenAPIModule extends OpenApiFeature
 	public OpenAPIModule()
 	{
 		setScan(true);
-		Set<IGuicedSwaggerConfiguration> configurations = GuiceContext.instance().loaderToSet(ServiceLoader.load(IGuicedSwaggerConfiguration.class));
+		Set<IGuicedSwaggerConfiguration> configurations = IGuiceContext.loaderToSet(ServiceLoader.load(IGuicedSwaggerConfiguration.class));
 		for (IGuicedSwaggerConfiguration configuration : configurations)
 		{
 			configuration.config(this);
