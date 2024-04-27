@@ -1,7 +1,6 @@
 package com.jwebmp.guiced.openapi.tests;
 
-import com.guicedee.guicedservlets.undertow.GuicedUndertow;
-import io.undertow.Undertow;
+import com.guicedee.client.IGuiceContext;
 import org.junit.jupiter.api.Test;
 
 import java.net.URI;
@@ -20,7 +19,10 @@ public class RestEasyModuleTest
 	@Test
 	public void configureServlets() throws Exception
 	{
-		Undertow undertow = GuicedUndertow.boot("0.0.0.0", 6004);
+
+		System.out.println("Starting...");
+		IGuiceContext.instance()
+					 .inject();
 
 		//Do stuff
 		HttpClient client = HttpClient.newBuilder()
@@ -28,7 +30,7 @@ public class RestEasyModuleTest
 		                              .build();
 		HttpResponse response = client.send(HttpRequest.newBuilder()
 		                                               .GET()
-		                                               .uri(new URI("http://localhost:6004/rest/hello/world"))
+		                                               .uri(new URI("http://localhost:8080/rest/hello/world"))
 		                                               .build(),
 		                                    HttpResponse.BodyHandlers.discarding());
 
@@ -36,7 +38,7 @@ public class RestEasyModuleTest
 
 		response = client.send(HttpRequest.newBuilder()
 		                                  .GET()
-		                                  .uri(new URI("http://localhost:6004/rest/openapi.json"))
+		                                  .uri(new URI("http://localhost:8080/openapi.json"))
 		                                  .build(),
 		                       HttpResponse.BodyHandlers.ofString());
 		
@@ -54,7 +56,7 @@ public class RestEasyModuleTest
 		
 		response = client.send(HttpRequest.newBuilder()
 										.GET()
-										.uri(new URI("http://localhost:6004/rest/openapi.yaml"))
+										.uri(new URI("http://localhost:8080/openapi.yaml"))
 										.build(),
 						HttpResponse.BodyHandlers.ofString());
 		

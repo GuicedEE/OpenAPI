@@ -2,7 +2,7 @@ package com.guicedee.guicedservlets.openapi.services;
 
 
 import com.guicedee.guicedinjection.interfaces.IDefaultService;
-import com.guicedee.guicedservlets.openapi.OpenAPIModule;
+import io.swagger.v3.oas.integration.api.OpenAPIConfiguration;
 
 /**
  * SPI that allows multi-module configuration for swagger
@@ -18,5 +18,5 @@ public interface IGuicedSwaggerConfiguration
 	 *
 	 * @return
 	 */
-	OpenAPIModule config(OpenAPIModule config);
+	OpenAPIConfiguration config(OpenAPIConfiguration config);
 }

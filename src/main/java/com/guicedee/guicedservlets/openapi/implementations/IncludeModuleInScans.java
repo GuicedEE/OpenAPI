@@ -10,7 +10,6 @@ public class IncludeModuleInScans implements IGuiceScanModuleInclusions<IncludeM
 	@Override
 	public @NotNull Set<String> includeModules()
 	{
-		return Set.of("com.guicedee.guicedservlets.openapi",
-						"org.apache.cxf.rest.openapi");
+		return Set.of();
 	}
 }

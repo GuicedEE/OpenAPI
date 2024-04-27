@@ -32,33 +32,12 @@
 
         <dependency>
             <groupId>com.guicedee.services</groupId>
-            <artifactId>cxf-rt-rs-service-description-openapi-v3</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.guicedee.services</groupId>
             <artifactId>openapi</artifactId>
-        </dependency>
-
-
-        <dependency>
-            <groupId>jakarta.servlet</groupId>
-            <artifactId>jakarta.servlet-api</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>jakarta.persistence</groupId>
-            <artifactId>jakarta.persistence-api</artifactId>
         </dependency>
 
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.guicedee.servlets</groupId>
-            <artifactId>guiced-undertow</artifactId>
         </dependency>
 
         <dependency>
@@ -77,13 +56,11 @@
             <scope>test</scope>
         </dependency>
 
-
         <dependency>
             <groupId>com.guicedee</groupId>
             <artifactId>guice-injection</artifactId>
             <scope>test</scope>
         </dependency>
-
 
     </dependencies>
 

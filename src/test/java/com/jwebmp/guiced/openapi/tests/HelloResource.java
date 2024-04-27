@@ -1,12 +1,11 @@
 package com.jwebmp.guiced.openapi.tests;
 
 import com.google.inject.Inject;
+import jakarta.ws.rs.*;
 
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
-
+@ApplicationPath("rest")
 @Path("hello")
+@Produces("application/json")
 public class HelloResource
 {
 	private final Greeter greeter;
