@@ -8,15 +8,13 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.MediaType;
 
 @Path("openapi.json")
-@Produces(MediaType.MEDIA_TYPE_WILDCARD)
+@Produces("text/json")
 public class OpenAPIJsonEndpoint
 {
     @Inject
     OpenAPI openAPI;
-
 
     @GET
     public String renderOpenAPI()
