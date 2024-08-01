@@ -9,8 +9,8 @@ module guiced.openapi.tests {
 	requires java.net.http;
 	
 	requires org.junit.jupiter.api;
-	requires org.slf4j;
-	requires org.slf4j.simple;
+	//requires org.slf4j;
+	//requires org.slf4j.simple;
 	requires jakarta.ws.rs;
 
     requires com.guicedee.services.openapi;
