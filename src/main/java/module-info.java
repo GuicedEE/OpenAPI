@@ -1,7 +1,6 @@
-import com.guicedee.guicedinjection.interfaces.IGuiceModule;
-import com.guicedee.guicedinjection.interfaces.IGuiceScanModuleInclusions;
 import com.guicedee.guicedservlets.openapi.implementations.IncludeModuleInScans;
 import com.guicedee.guicedservlets.openapi.implementations.OpenAPIModule;
+import com.guicedee.guicedinjection.interfaces.*;
 
 module com.guicedee.openapi {
 
@@ -15,7 +14,7 @@ module com.guicedee.openapi {
 
     requires org.apache.commons.lang3;
     requires jakarta.validation;
-	requires io.vertx.rest;
+	requires com.zandero.rest.vertx;
 	requires com.guicedee.jsonrepresentation;
 
 	exports com.guicedee.guicedservlets.openapi.services;
