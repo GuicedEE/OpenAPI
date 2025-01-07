@@ -6,7 +6,7 @@ module com.guicedee.openapi {
 
 	requires transitive com.fasterxml.jackson.databind;
 	
-	requires transitive com.guicedee.guicedservlets.rest;
+	requires transitive com.guicedee.rest;
 	requires transitive com.guicedee.client;
 
 	requires static lombok;
