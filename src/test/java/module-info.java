@@ -20,6 +20,6 @@ module guiced.openapi.tests {
     provides IGuiceModule with RestTestBinding;
 
 	opens com.guicedee.guicedservlets.openapi.implementations.test to org.junit.platform.commons,com.fasterxml.jackson.databind,com.google.guice;
-	opens com.jwebmp.guiced.openapi.tests to org.junit.platform.commons,com.fasterxml.jackson.databind,com.google.guice,io.vertx.rest;
+	opens com.jwebmp.guiced.openapi.tests to org.junit.platform.commons,com.fasterxml.jackson.databind,com.google.guice,com.zandero.rest.vertx;
 
 }

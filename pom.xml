@@ -27,7 +27,7 @@
 
         <dependency>
             <groupId>com.guicedee</groupId>
-            <artifactId>guiced-rest-services</artifactId>
+            <artifactId>guiced-vertx-web</artifactId>
         </dependency>
 
         <dependency>

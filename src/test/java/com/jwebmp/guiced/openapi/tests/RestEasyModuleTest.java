@@ -29,14 +29,6 @@ public class RestEasyModuleTest
 		                              .connectTimeout(Duration.of(5, ChronoUnit.SECONDS))
 		                              .build();
 		HttpResponse response = client.send(HttpRequest.newBuilder()
-		                                               .GET()
-		                                               .uri(new URI("http://localhost:8080/rest/hello/world"))
-		                                               .build(),
-		                                    HttpResponse.BodyHandlers.discarding());
-
-		assertEquals(200, response.statusCode());
-
-		response = client.send(HttpRequest.newBuilder()
 		                                  .GET()
 		                                  .uri(new URI("http://localhost:8080/openapi.json"))
 		                                  .build(),

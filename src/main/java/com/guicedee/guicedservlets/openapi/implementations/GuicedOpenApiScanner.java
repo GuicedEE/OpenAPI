@@ -8,7 +8,6 @@ import io.swagger.v3.oas.annotations.Webhooks;
 import io.swagger.v3.oas.integration.IgnoredPackages;
 import io.swagger.v3.oas.integration.api.OpenAPIConfiguration;
 import io.swagger.v3.oas.integration.api.OpenApiScanner;
-import jakarta.ws.rs.Path;
 import lombok.extern.java.Log;
 import org.apache.commons.lang3.StringUtils;
 
@@ -93,8 +92,10 @@ public class GuicedOpenApiScanner implements OpenApiScanner
                                           .loadClasses());
         classes.addAll(new HashSet<>(scanResult.getClassesWithAnnotation(Webhooks.class.getName())
                                                .loadClasses()));
-        classes.addAll(new HashSet<>(scanResult.getClassesWithAnnotation(Path.class.getName())
+        classes.addAll(new HashSet<>(scanResult.getClassesWithAnnotation("jakarta.ws.rs.Path")
                                                .loadClasses()));
+        classes.addAll(new HashSet<>(scanResult.getClassesWithAnnotation("jakarta.ws.rs.ApplicationPath")
+                .loadClasses()));
         nextclass:
         for (Class<?> cls : classes)
         {
