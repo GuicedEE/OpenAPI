@@ -8,16 +8,15 @@ import io.swagger.v3.oas.annotations.Webhooks;
 import io.swagger.v3.oas.integration.IgnoredPackages;
 import io.swagger.v3.oas.integration.api.OpenAPIConfiguration;
 import io.swagger.v3.oas.integration.api.OpenApiScanner;
-import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
 
-@Log
+@Log4j2
 public class GuicedOpenApiScanner implements OpenApiScanner
 {
 
@@ -61,7 +60,7 @@ public class GuicedOpenApiScanner implements OpenApiScanner
                     }
                     catch (ClassNotFoundException e)
                     {
-                        log.log(Level.WARNING, "error loading class from resourceClasses: " + e.getMessage(), e);
+                        log.warn("error loading class from resourceClasses: " + e.getMessage(), e);
                     }
                 }
             }
