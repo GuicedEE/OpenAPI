@@ -1,7 +1,7 @@
 package com.guicedee.guicedservlets.openapi.implementations;
 
 import com.google.inject.AbstractModule;
-import com.guicedee.guicedinjection.interfaces.IGuiceModule;
+import com.guicedee.client.services.lifecycle.IGuiceModule;
 import com.guicedee.services.jsonrepresentation.IJsonRepresentation;
 import io.swagger.v3.core.jackson.SwaggerModule;
 import io.swagger.v3.oas.models.OpenAPI;

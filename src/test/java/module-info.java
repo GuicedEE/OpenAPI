@@ -1,5 +1,5 @@
 
-import com.guicedee.guicedinjection.interfaces.IGuiceModule;
+import com.guicedee.client.services.lifecycle.IGuiceModule;
 import com.jwebmp.guiced.openapi.tests.RestTestBinding;
 
 module guiced.openapi.tests {

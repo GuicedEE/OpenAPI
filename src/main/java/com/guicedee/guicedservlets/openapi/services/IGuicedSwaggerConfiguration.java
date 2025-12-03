@@ -1,7 +1,7 @@
 package com.guicedee.guicedservlets.openapi.services;
 
 
-import com.guicedee.guicedinjection.interfaces.IDefaultService;
+import com.guicedee.client.services.IDefaultService;
 import io.swagger.v3.oas.integration.api.OpenAPIConfiguration;
 
 /**

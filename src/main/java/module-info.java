@@ -1,6 +1,7 @@
+import com.guicedee.client.services.lifecycle.IGuiceModule;
+import com.guicedee.client.services.config.IGuiceScanModuleInclusions;
 import com.guicedee.guicedservlets.openapi.implementations.IncludeModuleInScans;
 import com.guicedee.guicedservlets.openapi.implementations.OpenAPIModule;
-import com.guicedee.guicedinjection.interfaces.*;
 import com.guicedee.guicedservlets.openapi.implementations.OpenAPIRouter;
 
 module com.guicedee.openapi {
