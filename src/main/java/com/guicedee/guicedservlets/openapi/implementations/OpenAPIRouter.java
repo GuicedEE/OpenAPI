@@ -8,8 +8,26 @@ import io.swagger.v3.oas.integration.api.OpenApiContext;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.vertx.ext.web.Router;
 
-public class OpenAPIRouter implements VertxRouterConfigurator
+/**
+ * Vertx router configurator that exposes OpenAPI documents for the application.
+ *
+ * <p>Registers {@code /openapi.json} and {@code /openapi.yaml} endpoints that
+ * serialize the cached {@link OpenAPI} model using the OpenAPI context mappers.</p>
+ */
+public class OpenAPIRouter implements VertxRouterConfigurator<OpenAPIRouter>
 {
+    @Override
+    public Integer sortOrder()
+    {
+        return Integer.MIN_VALUE + 80;
+    }
+
+    /**
+     * Adds the OpenAPI JSON and YAML routes to the provided router.
+     *
+     * @param builder the router instance to configure
+     * @return the same router instance for chaining
+     */
     @Override
     public Router builder(Router builder)
     {

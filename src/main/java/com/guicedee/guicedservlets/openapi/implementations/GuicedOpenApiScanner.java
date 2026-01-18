@@ -16,10 +16,20 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * OpenAPI scanner that uses the Guice/ClassGraph scan result to discover
+ * resource and OpenAPI definition classes.
+ *
+ * <p>The scanner honors configuration-defined packages or classes and falls
+ * back to a full scan that excludes known ignored packages.</p>
+ */
 @Log4j2
 public class GuicedOpenApiScanner implements OpenApiScanner
 {
 
+    /**
+     * Packages that are excluded from scanning when all packages are allowed.
+     */
     static final Set<String> ignored = new HashSet<>();
 
     static
@@ -29,14 +39,32 @@ public class GuicedOpenApiScanner implements OpenApiScanner
         ignored.add("com.guicedee.guicedservlets.openapi.implementations");
     }
 
+    /**
+     * The OpenAPI configuration provided by the integration context.
+     */
     OpenAPIConfiguration openApiConfiguration;
 
+    /**
+     * Sets the configuration that drives scanning behavior.
+     *
+     * @param openApiConfiguration the OpenAPI configuration from the context
+     */
     @Override
     public void setConfiguration(OpenAPIConfiguration openApiConfiguration)
     {
         this.openApiConfiguration = openApiConfiguration;
     }
 
+    /**
+     * Resolves the set of resource classes to be used by the OpenAPI reader.
+     *
+     * <p>When {@code resourceClasses} are provided they are loaded directly.
+     * When {@code resourcePackages} are provided, only matching packages are
+     * included. Otherwise all scanned resources are included except ignored
+     * packages.</p>
+     *
+     * @return the resolved set of OpenAPI resource classes
+     */
     @Override
     public Set<Class<?>> classes()
     {
@@ -128,12 +156,23 @@ public class GuicedOpenApiScanner implements OpenApiScanner
         return output;
     }
 
+    /**
+     * Returns the OpenAPI scanner resources map.
+     *
+     * @return an empty resource map; class scanning is used instead
+     */
     @Override
     public Map<String, Object> resources()
     {
         return new HashMap<>();
     }
 
+    /**
+     * Determines whether the provided class or package should be excluded.
+     *
+     * @param classOrPackageName fully-qualified class or package name
+     * @return {@code true} when the name is blank or in an ignored package
+     */
     protected boolean isIgnored(String classOrPackageName)
     {
         if (StringUtils.isBlank(classOrPackageName))

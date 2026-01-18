@@ -4,6 +4,13 @@ import com.guicedee.guicedservlets.openapi.implementations.IncludeModuleInScans;
 import com.guicedee.guicedservlets.openapi.implementations.OpenAPIModule;
 import com.guicedee.guicedservlets.openapi.implementations.OpenAPIRouter;
 
+/**
+ * Integrates OpenAPI generation with Guice, providing a scanner, provider, and
+ * Vertx router endpoints for JSON/YAML OpenAPI documents.
+ *
+ * <p>This module exports the service SPI for configuration and wires default
+ * implementations through the standard Guice/ServiceLoader facilities.</p>
+ */
 module com.guicedee.openapi {
 
 	requires transitive com.fasterxml.jackson.databind;
