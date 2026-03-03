@@ -13,14 +13,15 @@
     <artifactId>openapi</artifactId>
     <packaging>jar</packaging>
     <version>2.0.0-SNAPSHOT</version>
-    <name>Guiced Swagger</name>
+    <name>Guiced OpenAPI</name>
 
     <description>Loads OpenAPI</description>
-    <url>https://github.com/GedMarc/GuicedSwagger</url>
+    <url>https://github.com/GedMarc/OpenAPI</url>
 
     <properties>
         <ignore.moditect>true</ignore.moditect>
         <flatten.pom>true</flatten.pom>
+        <project.scm.nameUrl>GuicedEE/OpenAPI</project.scm.nameUrl>
     </properties>
 
     <dependencies>
