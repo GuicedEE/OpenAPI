@@ -13,7 +13,7 @@ module guiced.openapi.tests {
 	//requires org.slf4j.simple;
 	requires jakarta.ws.rs;
 
-    requires com.guicedee.services.openapi;
+    requires com.guicedee.modules.services.openapi;
     requires com.google.guice;
     requires com.guicedee.client;
 

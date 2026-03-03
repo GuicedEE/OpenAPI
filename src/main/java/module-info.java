@@ -18,7 +18,7 @@ module com.guicedee.openapi {
 	requires transitive com.guicedee.client;
 
 	requires static lombok;
-    requires transitive com.guicedee.services.openapi;
+    requires transitive com.guicedee.modules.services.openapi;
 
     requires org.apache.commons.lang3;
 	requires com.guicedee.jsonrepresentation;
