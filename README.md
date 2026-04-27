@@ -2,7 +2,7 @@
 
 [![Build](https://github.com/GuicedEE/OpenAPI/actions/workflows/build.yml/badge.svg)](https://github.com/GuicedEE/OpenAPI/actions/workflows/build.yml)
 [![Maven Central](https://img.shields.io/maven-central/v/com.guicedee/openapi)](https://central.sonatype.com/artifact/com.guicedee/openapi)
-[![Snapshot](https://img.shields.io/badge/Snapshot-2.0.0-SNAPSHOT-orange)](https://github.com/GuicedEE/Packages/packages/maven/com.guicedee.openapi)
+[![Snapshot](https://img.shields.io/badge/Snapshot-2.0.1-SNAPSHOT-SNAPSHOT-orange)](https://github.com/GuicedEE/Packages/packages/maven/com.guicedee.openapi)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue)](https://www.apache.org/licenses/LICENSE-2.0)
 
 ![Java 25+](https://img.shields.io/badge/Java-25%2B-green)
@@ -28,7 +28,7 @@ Built on [Swagger Core 2 (OpenAPI 3.1)](https://github.com/swagger-api/swagger-c
 <summary>Gradle (Kotlin DSL)</summary>
 
 ```kotlin
-implementation("com.guicedee:openapi:2.0.0-RC11")
+implementation("com.guicedee:openapi:2.0.1-SNAPSHOT")
 ```
 </details>
 
