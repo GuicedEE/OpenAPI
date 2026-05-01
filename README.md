@@ -2,13 +2,11 @@
 
 [![Build](https://github.com/GuicedEE/OpenAPI/actions/workflows/build.yml/badge.svg)](https://github.com/GuicedEE/OpenAPI/actions/workflows/build.yml)
 [![Maven Central](https://img.shields.io/maven-central/v/com.guicedee/openapi)](https://central.sonatype.com/artifact/com.guicedee/openapi)
-[![Snapshot](https://img.shields.io/badge/Snapshot-2.0.1-SNAPSHOT-SNAPSHOT-orange)](https://github.com/GuicedEE/Packages/packages/maven/com.guicedee.openapi)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue)](https://www.apache.org/licenses/LICENSE-2.0)
 
 ![Java 25+](https://img.shields.io/badge/Java-25%2B-green)
 ![Guice 7](https://img.shields.io/badge/Guice-7%2B-green)
 ![Vert.X 5](https://img.shields.io/badge/Vert.x-5%2B-green)
-![Maven 4](https://img.shields.io/badge/Maven-4%2B-green)
 
 Automatic **OpenAPI 3.1 spec generation and serving** for the [GuicedEE](https://github.com/GuicedEE) / Vert.x stack.
 Add the dependency, annotate your Jakarta REST resources, and the module scans them at startup — `/openapi.json` and `/openapi.yaml` are live with zero configuration.
