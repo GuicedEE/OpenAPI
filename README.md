@@ -35,7 +35,7 @@ implementation("com.guicedee:openapi:2.0.2-SNAPSHOT")
 > ```xml
 > <dependency>
 >   <groupId>com.guicedee</groupId>
->   <artifactId>guiced-swagger-ui</artifactId>
+>   <artifactId>swagger-ui</artifactId>
 > </dependency>
 > ```
 
