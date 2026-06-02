@@ -1,11 +1,10 @@
-
 import com.guicedee.client.services.lifecycle.IGuiceModule;
 import com.jwebmp.guiced.openapi.tests.RestTestBinding;
 
 module guiced.openapi.tests {
 	
 	requires com.guicedee.openapi;
-	
+
 	requires java.net.http;
 	
 	requires org.junit.jupiter.api;
