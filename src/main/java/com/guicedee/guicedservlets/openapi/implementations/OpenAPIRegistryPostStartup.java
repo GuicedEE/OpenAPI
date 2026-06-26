@@ -1,11 +1,13 @@
 package com.guicedee.guicedservlets.openapi.implementations;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.DeserializationFeature;
+import tools.jackson.databind.ObjectMapper;
 import com.guicedee.client.Environment;
 import com.guicedee.client.IGuiceContext;
 import com.guicedee.client.services.lifecycle.IGuicePostStartup;
+import com.guicedee.vertx.spi.VertXPreStartup;
 import io.smallrye.mutiny.Uni;
+import io.swagger.v3.core.util.Json31;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.PathItem;
 import io.swagger.v3.oas.models.Paths;
@@ -16,13 +18,12 @@ import io.swagger.v3.oas.models.security.OAuthFlows;
 import io.swagger.v3.oas.models.security.Scopes;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
+import io.vertx.core.Vertx;
+import io.vertx.ext.web.client.WebClient;
+import io.vertx.ext.web.client.WebClientOptions;
 import lombok.extern.log4j.Log4j2;
 
 import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.time.Duration;
 import java.util.*;
 
 /**
@@ -90,21 +91,56 @@ public class OpenAPIRegistryPostStartup implements IGuicePostStartup<OpenAPIRegi
             // Add servers from service registry entries
             addServersFromRegistry(localOpenAPI, registryClass, currentEnv);
 
-            // Fetch and merge remote specs
-            ObjectMapper mapper = new ObjectMapper()
-                    .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-            HttpClient client = HttpClient.newBuilder()
-                    .connectTimeout(Duration.ofSeconds(5))
-                    .build();
+            // Reactive fetch-and-merge over the Vert.x event loop — never blocks the thread
+            Vertx vertx = VertXPreStartup.getVertx();
+            if (vertx == null)
+            {
+                log.warn("⚠️ Vertx not available — cannot fetch remote OpenAPI specs");
+                return List.of();
+            }
 
+            // Use Swagger's own OpenAPI 3.1 mapper (a private copy so we don't mutate the
+            // shared singleton). It registers the custom Schema deserializers that correctly
+            // turn nodes like `additionalProperties` into Boolean/Schema instances. A plain
+            // Jackson ObjectMapper lacks these and fails with
+            // "additionalProperties must be either a Boolean or a Schema instance" on any
+            // Map-typed property (e.g. Map<String,String>), which is valid OpenAPI.
+            ObjectMapper mapper = Json31.mapper().rebuild()
+                    .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                    .build();
+            WebClient client = WebClient.create(vertx, new WebClientOptions()
+                    .setConnectTimeout(5000)
+                    .setTrustAll(true)
+                    .setFollowRedirects(true));
+
+            // The set of all services that participate in the registry merge. A remote spec
+            // fetched from any of these may itself already contain peer paths/components that
+            // were merged in (namespaced under "/{peer}" or "{peer}_"). We must NOT re-merge
+            // those transitive entries, otherwise prefixes cascade
+            // (e.g. /ne1-core/ne1-service-registry/ne1-service-registry/...). We only take each
+            // service's OWN paths/components — its peers are picked up directly from each owner.
+            Set<String> knownServiceNames = new HashSet<>(openApiUrls.keySet());
+
+            List<Uni<Boolean>> fetches = new ArrayList<>(openApiUrls.size());
             for (var entry : openApiUrls.entrySet())
             {
                 String serviceName = entry.getKey();
                 String specUrl = entry.getValue();
-                fetchAndMerge(localOpenAPI, client, mapper, serviceName, specUrl);
+                fetches.add(fetchAndMerge(localOpenAPI, client, mapper, serviceName, specUrl, knownServiceNames));
             }
 
-            log.info("📖 OpenAPI registry merge complete — {} service specs processed", openApiUrls.size());
+            int count = openApiUrls.size();
+            // Join all fetches into a single Uni so the post-startup pipeline awaits them
+            // reactively, then close the WebClient and log once everything has settled.
+            Uni<Boolean> merged = Uni.join().all(fetches).andCollectFailures()
+                    .onItemOrFailure().invoke((results, err) -> {
+                        client.close();
+                        log.info("📖 OpenAPI registry merge complete — {} service specs processed", count);
+                    })
+                    .onItem().transform(results -> true)
+                    .onFailure().recoverWithItem(true);
+
+            return List.of(merged);
         }
         catch (ClassNotFoundException e)
         {
@@ -309,48 +345,93 @@ public class OpenAPIRegistryPostStartup implements IGuicePostStartup<OpenAPIRegi
         log.debug("🔐 Auto-generated '{}' security scheme for service '{}'", authScheme, serviceName);
     }
 
-    private void fetchAndMerge(OpenAPI localOpenAPI, HttpClient client, ObjectMapper mapper,
-                               String serviceName, String specUrl)
+    public Uni<Boolean> fetchAndMerge(OpenAPI localOpenAPI, WebClient client, ObjectMapper mapper,
+                                      String serviceName, String specUrl)
+    {
+        return fetchAndMerge(localOpenAPI, client, mapper, serviceName, specUrl, Set.of());
+    }
+
+    public Uni<Boolean> fetchAndMerge(OpenAPI localOpenAPI, WebClient client, ObjectMapper mapper,
+                                      String serviceName, String specUrl, Set<String> knownServiceNames)
     {
         try
         {
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(specUrl))
-                    .timeout(Duration.ofSeconds(10))
-                    .header("Accept", "application/json")
-                    .GET()
-                    .build();
+            URI uri = URI.create(specUrl);
+            int port = uri.getPort() > 0 ? uri.getPort()
+                    : ("https".equalsIgnoreCase(uri.getScheme()) ? 443 : 80);
+            boolean ssl = "https".equalsIgnoreCase(uri.getScheme());
+            String path = (uri.getRawPath() == null || uri.getRawPath().isEmpty()) ? "/" : uri.getRawPath();
+            if (uri.getRawQuery() != null && !uri.getRawQuery().isEmpty())
+            {
+                path = path + "?" + uri.getRawQuery();
+            }
+            final String requestUri = path;
 
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            if (response.statusCode() == 200)
-            {
-                OpenAPI remoteSpec = mapper.readValue(response.body(), OpenAPI.class);
-                mergeSpec(localOpenAPI, remoteSpec, serviceName);
-                log.info("✅ Merged OpenAPI spec from '{}' ({} paths)", serviceName,
-                        remoteSpec.getPaths() != null ? remoteSpec.getPaths().size() : 0);
-            }
-            else
-            {
-                log.warn("⚠️ Failed to fetch OpenAPI spec from '{}' ({}): HTTP {}",
-                        serviceName, specUrl, response.statusCode());
-            }
+            return Uni.createFrom().completionStage(() ->
+                            client.get(port, uri.getHost(), requestUri)
+                                    .ssl(ssl)
+                                    .putHeader("Accept", "application/json, text/json, */*")
+                                    .timeout(10_000)
+                                    .send()
+                                    .toCompletionStage())
+                    .onItem().transform(response -> {
+                        if (response.statusCode() == 200)
+                        {
+                            try
+                            {
+                                OpenAPI remoteSpec = mapper.readValue(response.bodyAsString(), OpenAPI.class);
+                                mergeSpec(localOpenAPI, remoteSpec, serviceName, knownServiceNames);
+                                log.info("✅ Merged OpenAPI spec from '{}' ({} paths)", serviceName,
+                                        remoteSpec.getPaths() != null ? remoteSpec.getPaths().size() : 0);
+                            }
+                            catch (Exception e)
+                            {
+                                log.warn("⚠️ Error parsing OpenAPI spec from '{}' ({}): {}",
+                                        serviceName, specUrl, e.getMessage());
+                            }
+                        }
+                        else
+                        {
+                            log.warn("⚠️ Failed to fetch OpenAPI spec from '{}' ({}): HTTP {}",
+                                    serviceName, specUrl, response.statusCode());
+                        }
+                        return true;
+                    })
+                    .onFailure().recoverWithItem(err -> {
+                        log.warn("⚠️ Error fetching OpenAPI spec from '{}' ({}): {}",
+                                serviceName, specUrl, err.getMessage());
+                        return true;
+                    });
         }
         catch (Exception e)
         {
             log.warn("⚠️ Error fetching OpenAPI spec from '{}' ({}): {}",
                     serviceName, specUrl, e.getMessage());
+            return Uni.createFrom().item(true);
         }
     }
 
     /**
      * Merges paths, components, servers, tags, and security from a remote OpenAPI spec into the local one.
-     * Remote paths are prefixed with /{serviceName} to avoid collisions.
-     * Schemas and security schemes are prefixed with {ServiceName}_ to namespace them.
+     * <p>
+     * Only the remote service's <b>own</b> paths/components are merged. Entries that are already
+     * namespaced under a known registry service (path segment {@code /{peer}/...} or component
+     * key {@code {peer}_...}) are <b>skipped</b> — those are transitive merges the remote performed
+     * for its peers, and re-prefixing them here would cascade prefixes
+     * (e.g. {@code /a/b/b/...}) and produce duplicate operations. Each peer is merged directly
+     * from its own spec instead.
+     * <p>
+     * Remote (own) paths are prefixed with {@code /{serviceName}} to avoid collisions, and the
+     * prefix is applied idempotently. Schemas and security schemes are prefixed with
+     * {@code {serviceName}_} to namespace them.
+     *
+     * @param knownServiceNames names of all services participating in the registry merge; used to
+     *                          recognise and skip transitively-merged peer entries
      */
     @SuppressWarnings({"unchecked", "rawtypes"})
-    private void mergeSpec(OpenAPI local, OpenAPI remote, String serviceName)
+    private void mergeSpec(OpenAPI local, OpenAPI remote, String serviceName, Set<String> knownServiceNames)
     {
-        // ── Merge Paths ──────────────────────────────────────────────────────
+        // ──── Merge Paths ────
         if (remote.getPaths() != null && !remote.getPaths().isEmpty())
         {
             if (local.getPaths() == null)
@@ -362,12 +443,24 @@ public class OpenAPIRegistryPostStartup implements IGuicePostStartup<OpenAPIRegi
             for (Map.Entry<String, PathItem> pathEntry : remote.getPaths().entrySet())
             {
                 String remotePath = pathEntry.getKey();
-                String mergedPath = prefix + (remotePath.startsWith("/") ? remotePath : "/" + remotePath);
+
+                // Skip paths the remote merged in from its own peers — they are already
+                // namespaced under another registry service and would cascade if re-prefixed.
+                if (isNamespacedByKnownService(remotePath, knownServiceNames, serviceName))
+                {
+                    continue;
+                }
+
+                String normalised = remotePath.startsWith("/") ? remotePath : "/" + remotePath;
+                // Idempotent prefixing — never double up if already under this service's prefix.
+                String mergedPath = (normalised.equals(prefix) || normalised.startsWith(prefix + "/"))
+                        ? normalised
+                        : prefix + normalised;
                 local.getPaths().addPathItem(mergedPath, pathEntry.getValue());
             }
         }
 
-        // ── Merge Components ─────────────────────────────────────────────────
+        // ──── Merge Components ────
         if (remote.getComponents() != null)
         {
             if (local.getComponents() == null)
@@ -389,6 +482,8 @@ public class OpenAPIRegistryPostStartup implements IGuicePostStartup<OpenAPIRegi
                 Map<String, Object> targetSchemas = (Map) localComponents.getSchemas();
                 for (var schema : remoteSchemas.entrySet())
                 {
+                    // Skip schemas the remote merged from its peers (already "{peer}_X").
+                    if (isNamespacedComponent(schema.getKey(), knownServiceNames, serviceName)) continue;
                     targetSchemas.putIfAbsent(serviceName + "_" + schema.getKey(), schema.getValue());
                 }
             }
@@ -402,6 +497,7 @@ public class OpenAPIRegistryPostStartup implements IGuicePostStartup<OpenAPIRegi
                 }
                 for (var sec : remoteComponents.getSecuritySchemes().entrySet())
                 {
+                    if (isNamespacedComponent(sec.getKey(), knownServiceNames, serviceName)) continue;
                     localComponents.getSecuritySchemes()
                             .putIfAbsent(serviceName + "_" + sec.getKey(), sec.getValue());
                 }
@@ -513,7 +609,7 @@ public class OpenAPIRegistryPostStartup implements IGuicePostStartup<OpenAPIRegi
             }
         }
 
-        // ── Merge Tags ───────────────────────────────────────────────────────
+        // ──── Merge Tags ────
         if (remote.getTags() != null && !remote.getTags().isEmpty())
         {
             if (local.getTags() == null)
@@ -535,7 +631,7 @@ public class OpenAPIRegistryPostStartup implements IGuicePostStartup<OpenAPIRegi
             }
         }
 
-        // ── Merge Security Requirements ──────────────────────────────────────
+        // ──── Merge Security Requirements ────
         if (remote.getSecurity() != null && !remote.getSecurity().isEmpty())
         {
             if (local.getSecurity() == null)
@@ -554,7 +650,7 @@ public class OpenAPIRegistryPostStartup implements IGuicePostStartup<OpenAPIRegi
             }
         }
 
-        // ── Merge Servers from remote spec ───────────────────────────────────
+        // ──── Merge Servers from remote spec ────
         if (remote.getServers() != null)
         {
             if (local.getServers() == null)
@@ -584,6 +680,36 @@ public class OpenAPIRegistryPostStartup implements IGuicePostStartup<OpenAPIRegi
                 }
             }
         }
+    }
+
+    /**
+     * Returns {@code true} when a remote path's first segment matches a known registry service
+     * name — meaning the remote already merged this path from one of its peers. Such transitively
+     * merged paths are skipped so prefixes don't cascade and operations aren't duplicated.
+     * A path under the service's own prefix is <i>not</i> treated as foreign (handled idempotently).
+     */
+    private boolean isNamespacedByKnownService(String remotePath, Set<String> knownServiceNames, String serviceName)
+    {
+        if (remotePath == null || knownServiceNames == null || knownServiceNames.isEmpty()) return false;
+        String p = remotePath.startsWith("/") ? remotePath.substring(1) : remotePath;
+        int slash = p.indexOf('/');
+        String firstSegment = slash >= 0 ? p.substring(0, slash) : p;
+        if (firstSegment.isEmpty() || firstSegment.equals(serviceName)) return false;
+        return knownServiceNames.contains(firstSegment);
+    }
+
+    /**
+     * Returns {@code true} when a component key is already namespaced under a known registry
+     * service (i.e. starts with {@code "{peer}_"}), indicating the remote merged it from a peer.
+     */
+    private boolean isNamespacedComponent(String key, Set<String> knownServiceNames, String serviceName)
+    {
+        if (key == null || knownServiceNames == null || knownServiceNames.isEmpty()) return false;
+        int underscore = key.indexOf('_');
+        if (underscore <= 0) return false;
+        String firstSegment = key.substring(0, underscore);
+        if (firstSegment.equals(serviceName)) return false;
+        return knownServiceNames.contains(firstSegment);
     }
 
     /**

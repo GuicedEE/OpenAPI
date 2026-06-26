@@ -15,7 +15,7 @@ import com.guicedee.guicedservlets.openapi.implementations.OpenAPIRegistryPostSt
  */
 module com.guicedee.openapi {
 
-	requires transitive com.fasterxml.jackson.databind;
+	requires transitive tools.jackson.databind;
 	requires transitive com.guicedee.vertx.web;
 	requires transitive com.guicedee.client;
 
@@ -24,7 +24,7 @@ module com.guicedee.openapi {
 
     requires org.apache.commons.lang3;
 	requires com.guicedee.jsonrepresentation;
-    requires java.net.http;
+    requires io.vertx.web.client;
 
 	exports com.guicedee.guicedservlets.openapi.services;
 

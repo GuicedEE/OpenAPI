@@ -1,6 +1,6 @@
 package com.guicedee.guicedservlets.openapi.implementations;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import tools.jackson.core.JacksonException;
 import com.guicedee.client.IGuiceContext;
 import com.guicedee.vertx.web.spi.VertxRouterConfigurator;
 import io.swagger.v3.oas.integration.OpenApiContextLocator;
@@ -35,6 +35,9 @@ public class OpenAPIRouter implements VertxRouterConfigurator<OpenAPIRouter>
                 .getOpenApiContext("context");
 
         builder.get("/openapi.json")
+                // Advertise the standard IANA media type for OpenAPI JSON.
+                // Also accept the legacy "text/json" so either Accept header negotiates successfully.
+                .produces("application/json")
                 .produces("text/json")
                 .enable()
                 .handler(context -> {
@@ -46,11 +49,12 @@ public class OpenAPIRouter implements VertxRouterConfigurator<OpenAPIRouter>
                                 .writerWithDefaultPrettyPrinter()
                                 .writeValueAsString(openAPI);
                     }
-                    catch (JsonProcessingException e)
+                    catch (JacksonException e)
                     {
                         throw new RuntimeException(e);
                     }
                     context.response()
+                            .putHeader("Content-Type", "application/json")
                             .setStatusCode(200)
                             .end(output)
                             ;
@@ -68,7 +72,7 @@ public class OpenAPIRouter implements VertxRouterConfigurator<OpenAPIRouter>
                                 .writerWithDefaultPrettyPrinter()
                                 .writeValueAsString(openAPI);
                     }
-                    catch (JsonProcessingException e)
+                    catch (JacksonException e)
                     {
                         throw new RuntimeException(e);
                     }

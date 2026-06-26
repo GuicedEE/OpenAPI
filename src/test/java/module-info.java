@@ -16,9 +16,14 @@ module guiced.openapi.tests {
     requires com.google.guice;
     requires com.guicedee.client;
 
+    requires io.smallrye.mutiny;
+    requires io.vertx.core;
+    requires io.vertx.web.client;
+    requires tools.jackson.databind;
+
     provides IGuiceModule with RestTestBinding;
 
-	opens com.guicedee.guicedservlets.openapi.implementations.test to org.junit.platform.commons,com.fasterxml.jackson.databind,com.google.guice;
-	opens com.jwebmp.guiced.openapi.tests to org.junit.platform.commons,com.fasterxml.jackson.databind,com.google.guice,com.zandero.rest.vertx;
+	opens com.guicedee.guicedservlets.openapi.implementations.test to org.junit.platform.commons,tools.jackson.databind,com.google.guice;
+	opens com.jwebmp.guiced.openapi.tests to org.junit.platform.commons,tools.jackson.databind,com.google.guice,com.zandero.rest.vertx;
 
 }

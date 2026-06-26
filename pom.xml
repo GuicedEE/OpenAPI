@@ -44,6 +44,10 @@
             <artifactId>web</artifactId>
         </dependency>
         <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-web-client</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.guicedee.modules.services</groupId>
             <artifactId>openapi</artifactId>
         </dependency>
