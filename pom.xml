@@ -49,7 +49,7 @@
         </dependency>
         <dependency>
             <groupId>com.guicedee.modules.services</groupId>
-            <artifactId>openapi</artifactId>
+            <artifactId>swagger</artifactId>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
