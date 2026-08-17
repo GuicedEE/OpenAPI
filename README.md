@@ -42,7 +42,7 @@ implementation("com.guicedee:openapi:2.2.0")
 ## ✨ Features
 
 - **Zero-config spec generation** — `GuicedOpenApiScanner` uses the ClassGraph scan result to discover `@Path`, `@ApplicationPath`, `@OpenAPIDefinition`, and `@Webhooks` annotated classes automatically
-- **JSON + YAML endpoints** — `OpenAPIRouter` registers `/openapi.json` and `/openapi.yaml` on the Vert.x `Router` at startup
+- **JSON + YAML endpoints** — `OpenAPIRouter` registers `/openapi.json` and `/openapi.yaml` on the Vert.x `RouterConfig` at startup
 - **OpenAPI 3.1** — spec is generated with `convertToOpenAPI31(true)` by default
 - **SPI customization** — implement `IGuicedSwaggerConfiguration` to modify the `OpenAPIConfiguration` (title, version, servers, resource packages, etc.) before the context initializes
 - **Auto-discovery of config files** — searches classpath and filesystem for `openapi-configuration.yaml`, `openapi-configuration.json`, `openapi.yaml`, `openapi.json`
@@ -269,7 +269,7 @@ This is the same cached instance used by the `/openapi.json` and `/openapi.yaml`
 | SPI | Purpose |
 |---|---|
 | `IGuicedSwaggerConfiguration` | Modify `OpenAPIConfiguration` before the context initializes |
-| `VertxRouterConfigurator` | Customize the Vert.x `Router` (provided by `OpenAPIRouter`) |
+| `VertxRouterConfigurator` | Customize the Vert.x `RouterConfig` (provided by `OpenAPIRouter`) |
 | `IGuiceModule` | Contribute Guice bindings (provided by `OpenAPIModule`) |
 | `IGuiceScanModuleInclusions` | Opt modules into ClassGraph scanning (provided by `IncludeModuleInScans`) |
 
