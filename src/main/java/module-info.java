@@ -15,15 +15,12 @@ import com.guicedee.guicedservlets.openapi.implementations.OpenAPIRegistryPostSt
  */
 module com.guicedee.openapi {
 
-	requires transitive tools.jackson.databind;
 	requires transitive com.guicedee.vertx.web;
-	requires transitive com.guicedee.client;
 
 	requires static lombok;
     requires transitive com.guicedee.modules.services.openapi;
 
     requires org.apache.commons.lang3;
-	requires com.guicedee.jsonrepresentation;
     requires io.vertx.web.client;
 
 	exports com.guicedee.guicedservlets.openapi.services;
