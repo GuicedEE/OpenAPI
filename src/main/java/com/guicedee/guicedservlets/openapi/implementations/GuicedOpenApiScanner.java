@@ -1,5 +1,7 @@
 package com.guicedee.guicedservlets.openapi.implementations;
 
+import com.guicedee.client.utils.ClassLoading;
+
 
 import com.guicedee.client.IGuiceContext;
 import io.github.classgraph.ScanResult;
@@ -115,14 +117,10 @@ public class GuicedOpenApiScanner implements OpenApiScanner
         final Set<Class<?>> classes;
         ScanResult scanResult = IGuiceContext.instance()
                                              .getScanResult();
-        classes = new HashSet<>(scanResult.getClassesWithAnnotation(OpenAPIDefinition.class.getName())
-                                          .loadClasses());
-        classes.addAll(new HashSet<>(scanResult.getClassesWithAnnotation(Webhooks.class.getName())
-                                               .loadClasses()));
-        classes.addAll(new HashSet<>(scanResult.getClassesWithAnnotation("jakarta.ws.rs.Path")
-                                               .loadClasses()));
-        classes.addAll(new HashSet<>(scanResult.getClassesWithAnnotation("jakarta.ws.rs.ApplicationPath")
-                .loadClasses()));
+        classes = new HashSet<>(ClassLoading.loadClasses(scanResult.getClassesWithAnnotation(OpenAPIDefinition.class.getName())));
+        classes.addAll(ClassLoading.loadClasses(scanResult.getClassesWithAnnotation(Webhooks.class.getName())));
+        classes.addAll(ClassLoading.loadClasses(scanResult.getClassesWithAnnotation("jakarta.ws.rs.Path")));
+        classes.addAll(ClassLoading.loadClasses(scanResult.getClassesWithAnnotation("jakarta.ws.rs.ApplicationPath")));
         nextclass:
         for (Class<?> cls : classes)
         {
