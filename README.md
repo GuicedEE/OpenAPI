@@ -26,7 +26,7 @@ Built on [Swagger Core 2 (OpenAPI 3.1)](https://github.com/swagger-api/swagger-c
 <summary>Gradle (Kotlin DSL)</summary>
 
 ```kotlin
-implementation("com.guicedee:openapi:2.4.0")
+implementation("com.guicedee:openapi:2.4.1")
 ```
 </details>
 
