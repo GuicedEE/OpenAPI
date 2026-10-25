@@ -4,6 +4,7 @@ import tools.jackson.databind.DeserializationFeature;
 import tools.jackson.databind.ObjectMapper;
 import com.guicedee.guicedservlets.openapi.implementations.OpenAPIRegistryPostStartup;
 import io.smallrye.mutiny.Uni;
+import io.swagger.v3.core.util.Json31;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpServer;
@@ -14,6 +15,7 @@ import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -26,12 +28,16 @@ public class OpenAPIRegistryFetchMergeTest
 {
     private static final String REMOTE_SPEC = """
             {
-              "openapi": "3.0.1",
+              "openapi": "3.1.0",
               "info": {"title": "Remote Service", "version": "1.0.0"},
               "paths": {
                 "/ping": {"get": {"responses": {"200": {"description": "ok"}}}}
               },
-              "components": {"schemas": {"Pong": {"type": "object"}}}
+              "components": {"schemas": {
+                "Pong": {"type": "object", "properties": {
+                  "entries": {"type": "object", "additionalProperties": {"type": "string"}}
+                }}
+              }}
             }
             """;
 
@@ -52,7 +58,7 @@ public class OpenAPIRegistryFetchMergeTest
             int port = server.actualPort();
 
             WebClient client = WebClient.create(vertx);
-            ObjectMapper mapper = tools.jackson.databind.json.JsonMapper.builder()
+            ObjectMapper mapper = Json31.mapper().rebuild()
                     .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
                     .build();
 
@@ -76,6 +82,9 @@ public class OpenAPIRegistryFetchMergeTest
             assertNotNull(local.getComponents().getSchemas(), "local schemas should be populated");
             assertTrue(local.getComponents().getSchemas().containsKey("remote_Pong"),
                     "remote schema should be namespaced with the service name");
+            var merged = mapper.readTree(mapper.writeValueAsString(local));
+            assertEquals("string", merged.at(
+                    "/components/schemas/remote_Pong/properties/entries/additionalProperties/type").asText());
 
             client.close();
             server.close().toCompletionStage().toCompletableFuture().get(5, TimeUnit.SECONDS);

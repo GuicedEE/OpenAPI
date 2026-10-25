@@ -11,7 +11,16 @@
 Automatic **OpenAPI 3.1 spec generation and serving** for the [GuicedEE](https://github.com/GuicedEE) / Vert.x stack.
 Add the dependency, annotate your Jakarta REST resources, and the module scans them at startup — `/openapi.json` and `/openapi.yaml` are live with zero configuration.
 
-Built on [Swagger Core 2 (OpenAPI 3.1)](https://github.com/swagger-api/swagger-core) · [Vert.x 5](https://vertx.io/) · [Google Guice](https://github.com/google/guice) · JPMS module `com.guicedee.openapi` · Java 25+
+Built on [Swagger Core 3 (Jackson 3, OpenAPI 3.1)](https://github.com/swagger-api/swagger-core) · [Vert.x 5](https://vertx.io/) · [Google Guice](https://github.com/google/guice) · JPMS module `com.guicedee.openapi` · Java 25+
+
+The Swagger wrapper uses the official `io.swagger.core.v3` artifacts, currently pinned to
+snapshot `3.0.0-20261023.100341-12` while the final release is pending
+([upstream Jackson 3 discussion](https://github.com/swagger-api/swagger-core/issues/4991)).
+REST integration classes now use `io.swagger.v3.rest`; Swagger annotation packages and
+the GuicedEE module names are unchanged.
+
+See the [migration validation notes](docs/swagger-core-3-migration.md) for build
+evidence and existing limitations.
 
 ## 📦 Installation
 
@@ -218,7 +227,7 @@ The following defaults are set by `OpenAPIProvider`:
 The scanner excludes:
 
 - All packages from Swagger Core's `IgnoredPackages.ignored` set
-- `io.swagger.v3.jaxrs2`
+- `io.swagger.v3.rest`
 - `com.guicedee.guicedservlets.openapi.implementations`
 
 ### OpenAPI annotations

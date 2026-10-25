@@ -37,7 +37,7 @@ public class GuicedOpenApiScanner implements OpenApiScanner
     static
     {
         ignored.addAll(IgnoredPackages.ignored);
-        ignored.add("io.swagger.v3.jaxrs2");
+        ignored.add("io.swagger.v3.rest");
         ignored.add("com.guicedee.guicedservlets.openapi.implementations");
     }
 

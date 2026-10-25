@@ -67,7 +67,7 @@ public class OpenAPIProvider implements Provider<OpenAPI>
         GuicedOpenApiScanner scanner = new GuicedOpenApiScanner();
         scanner.setConfiguration(configuration);
         cc.setOpenApiScanner(scanner);
-        cc.setOpenApiReader(new io.swagger.v3.jaxrs2.Reader());
+        cc.setOpenApiReader(new io.swagger.v3.rest.Reader());
 
         try
         {

@@ -1,6 +1,9 @@
 package com.jwebmp.guiced.openapi.tests;
 
 import com.guicedee.client.IGuiceContext;
+import io.swagger.v3.core.util.Json31;
+import io.swagger.v3.core.util.Yaml31;
+import io.swagger.v3.oas.models.OpenAPI;
 import org.junit.jupiter.api.Test;
 
 import java.net.URI;
@@ -40,6 +43,7 @@ public class RestEasyModuleTest
 		assertEquals(200, response.statusCode(), "Hello World Rest not available");
 		String resp = response.body()
 		                      .toString();
+		OpenAPI jsonSpec = Json31.mapper().readValue(resp, OpenAPI.class);
 		
 		if (!resp.contains("\"openapi\" :"))
 		{
@@ -54,6 +58,10 @@ public class RestEasyModuleTest
 		
 		System.out.println("Response from openapi.yaml - " + response);
 		System.out.println("Response from openapi.yaml - " + response.body());
+		assertEquals(200, response.statusCode(), "OpenAPI YAML endpoint not available");
+		OpenAPI yamlSpec = Yaml31.mapper().readValue(response.body().toString(), OpenAPI.class);
+		assertEquals(jsonSpec.getOpenapi(), yamlSpec.getOpenapi());
+		assertEquals(Json31.mapper().valueToTree(jsonSpec), Json31.mapper().valueToTree(yamlSpec));
 		
 		//undertow.stop();
 	}
