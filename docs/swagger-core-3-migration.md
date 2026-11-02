@@ -5,6 +5,36 @@ Upstream discussion: https://github.com/swagger-api/swagger-core/issues/4991.
 Validation used the existing workspace dependency versions. Unrelated pending
 Versioner updates were preserved and excluded from the migration commits.
 
+## Final release update — 2026-10-31
+
+The shared Swagger version is now **3.0.0 final** from Maven Central, replacing
+the timestamped snapshot. All six managed artifacts resolve to `3.0.0`, and the
+wrapper no longer declares the Sonatype snapshot repository. GuicedEE artifact
+versions remain `2.4.2`; the wrapper module name and integration APIs are unchanged.
+
+Validated with Java 25 and the pinned Maven 4.0.0-rc-7 wrapper:
+
+- Versioner and Swagger BOM installed successfully.
+- Swagger and CXF OpenAPI wrappers rebuilt and installed, including sources and
+  Javadocs, with `-Dmaven.jar.forceCreation=true`.
+- OpenAPI: 7 tests; REST: 74 tests; Swagger UI: 1 test. All 82 passed with zero
+  failures, errors or skips, including JSON/YAML typed-map schema references.
+- All 333 embedded Swagger classes match the five upstream 3.0.0 JARs byte for
+  byte. Each upstream JAR matches its Maven Central SHA-1.
+- Build, installed JAR and actual OpenAPI test module-path JAR have identical
+  SHA-256 hashes. The wrapper remains `com.guicedee.modules.services.openapi`.
+- The installed wrapper POM has no upstream Swagger runtime dependency or
+  snapshot repository. The effective BOM manages all six official artifacts at
+  `3.0.0`.
+- CXF classpath smoke passed extension discovery, feature construction and
+  official REST context construction.
+
+Evidence: `DevSuite/target/swagger-final-2026-10-31/`, including
+`artifact-verification.json`, effective POM, module descriptor and Maven logs.
+The limitations recorded below remain outside this focused release update;
+injector baseline failures and full CXF JPMS/Servlet parity were not revalidated.
+These checks establish local compatibility, not publication or deployment.
+
 ## Dependency and integration changes
 
 The GuicedEE Swagger BOM now manages `io.swagger.core.v3` instead of the
@@ -81,6 +111,6 @@ mvn.cmd -B -f GuicedEE/swagger-ui/pom.xml test
   inline-map merging are covered separately; reference rewriting needs its own
   fix and regression coverage.
 
-These results are local build and test evidence, not hosted CI, deployment, or
-production acceptance. When the final upstream release is published, replace
-the snapshot pin, remove the snapshot repository, and rerun the same checks.
+The original migration results above are historical local build and test
+evidence, not hosted CI, deployment, or production acceptance. The final-release
+update and its current validation results are recorded at the top of this file.

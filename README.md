@@ -13,8 +13,7 @@ Add the dependency, annotate your Jakarta REST resources, and the module scans t
 
 Built on [Swagger Core 3 (Jackson 3, OpenAPI 3.1)](https://github.com/swagger-api/swagger-core) · [Vert.x 5](https://vertx.io/) · [Google Guice](https://github.com/google/guice) · JPMS module `com.guicedee.openapi` · Java 25+
 
-The Swagger wrapper uses the official `io.swagger.core.v3` artifacts, currently pinned to
-snapshot `3.0.0-20261023.100341-12` while the final release is pending
+The Swagger wrapper uses the official `io.swagger.core.v3` **3.0.0 final** artifacts from Maven Central
 ([upstream Jackson 3 discussion](https://github.com/swagger-api/swagger-core/issues/4991)).
 REST integration classes now use `io.swagger.v3.rest`; Swagger annotation packages and
 the GuicedEE module names are unchanged.
