@@ -22,6 +22,9 @@ module guiced.openapi.tests {
     requires tools.jackson.databind;
 
     provides IGuiceModule with RestTestBinding;
+    provides com.guicedee.guicedservlets.openapi.services.IGuicedSwaggerConfiguration
+        with com.jwebmp.guiced.openapi.tests.ProviderConfiguration;
+    exports com.jwebmp.guiced.openapi.tests to com.guicedee.modules.services.openapi;
 
 	opens com.guicedee.guicedservlets.openapi.implementations.test to org.junit.platform.commons,tools.jackson.databind,com.google.guice;
 	opens com.jwebmp.guiced.openapi.tests to org.junit.platform.commons,tools.jackson.databind,com.google.guice,com.zandero.rest.vertx;

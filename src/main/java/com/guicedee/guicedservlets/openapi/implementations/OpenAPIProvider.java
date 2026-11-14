@@ -9,6 +9,7 @@ import io.swagger.v3.oas.models.OpenAPI;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -24,11 +25,11 @@ public class OpenAPIProvider implements Provider<OpenAPI>
     /**
      * Current OpenAPI configuration, possibly updated by SPI contributors.
      */
-    private OpenAPIConfiguration configuration;
+    private final OpenAPIConfiguration configuration;
     /**
      * Cached OpenAPI model read from the configured context.
      */
-    private OpenAPI openAPI;
+    private final OpenAPI openAPI;
 
     /**
      * Known configuration loaders keyed by scheme name.
@@ -49,25 +50,19 @@ public class OpenAPIProvider implements Provider<OpenAPI>
      */
     public OpenAPIProvider()
     {
-        SwaggerConfiguration swaggerConfiguration = new SwaggerConfiguration();
-        swaggerConfiguration.setReadAllResources(true);
-        swaggerConfiguration.setConvertToOpenAPI31(true);
-        swaggerConfiguration.setAlwaysResolveAppPath(true);
-        swaggerConfiguration.setPrettyPrint(true);
-        this.configuration = swaggerConfiguration;
-        locateDefaultConfiguration();
+        OpenAPIConfiguration configured = loadDefaultConfiguration();
         ServiceLoader<IGuicedSwaggerConfiguration> load = ServiceLoader.load(IGuicedSwaggerConfiguration.class);
         for (IGuicedSwaggerConfiguration conf : load)
         {
-            configuration = conf.config(configuration);
+            configured = Objects.requireNonNull(conf.config(configured),
+                    "OpenAPI configuration SPI returned null: " + conf.getClass().getName());
         }
-        GenericOpenApiContext cc = new GenericOpenApiContext();
+        configuration = configured;
+        GenericOpenApiContext<?> cc = new GuicedOpenApiContext(configuration);
         cc.setId("context");
-        cc.convertToOpenAPI31(true);
         GuicedOpenApiScanner scanner = new GuicedOpenApiScanner();
         scanner.setConfiguration(configuration);
         cc.setOpenApiScanner(scanner);
-        cc.setOpenApiReader(new io.swagger.v3.rest.Reader());
 
         try
         {
@@ -77,8 +72,39 @@ public class OpenAPIProvider implements Provider<OpenAPI>
         {
             throw new RuntimeException(e);
         }
-        OpenApiContextLocator.getInstance().putOpenApiContext("context",cc);
         openAPI = cc.read();
+    }
+
+    private static OpenAPIConfiguration loadDefaultConfiguration()
+    {
+        SwaggerConfiguration defaults = new SwaggerConfiguration().openAPI31(true);
+        for (var location : KNOWN_LOCATIONS)
+        {
+            OpenApiConfigurationLoader loader = LOADERS.get(location.getLeft());
+            if (loader.exists(location.getRight()))
+            {
+                try
+                {
+                    OpenAPIConfiguration loaded = loader.load(location.getRight());
+                    if (!(loaded instanceof SwaggerConfiguration swagger))
+                    {
+                        throw new IllegalStateException("Invalid OpenAPI configuration: " + location);
+                    }
+                    defaults = swagger;
+                    break;
+                }
+                catch (IOException e)
+                {
+                    throw new IllegalStateException("Cannot read OpenAPI configuration: " + location, e);
+                }
+            }
+        }
+        if (defaults.isReadAllResources() == null) defaults.setReadAllResources(true);
+        if (defaults.isOpenAPI31() == null) defaults.setOpenAPI31(true);
+        if (defaults.isConvertToOpenAPI31() == null) defaults.setConvertToOpenAPI31(false);
+        if (defaults.isAlwaysResolveAppPath() == null) defaults.setAlwaysResolveAppPath(true);
+        if (defaults.isPrettyPrint() == null) defaults.setPrettyPrint(true);
+        return defaults;
     }
 
     /**
@@ -87,7 +113,7 @@ public class OpenAPIProvider implements Provider<OpenAPI>
      * @return a map keyed by {@code classpath} or {@code file} scheme
      */
     private static Map<String, OpenApiConfigurationLoader> getLocationLoaders() {
-        Map<String, OpenApiConfigurationLoader> map = new HashMap();
+        Map<String, OpenApiConfigurationLoader> map = new HashMap<>();
         map.put("classpath", new ClasspathOpenApiConfigurationLoader());
         map.put("file", new FileOpenApiConfigurationLoader());
         return map;

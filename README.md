@@ -159,14 +159,15 @@ HTTP GET /openapi.yaml
 Place one of these files on the classpath (e.g. `src/main/resources/openapi-configuration.yaml`) to supply default metadata:
 
 ```yaml
-openAPI: "3.1.0"
-info:
-  title: "My Service"
-  version: "1.0.0"
-  description: "My awesome microservice"
-servers:
-  - url: "http://localhost:8080"
-    description: "Local dev"
+openAPI31: true
+openAPI:
+  info:
+    title: "My Service"
+    version: "1.0.0"
+    description: "My awesome microservice"
+  servers:
+    - url: "http://localhost:8080"
+      description: "Local dev"
 ```
 
 ### SPI configuration (`IGuicedSwaggerConfiguration`)
@@ -207,9 +208,28 @@ The following defaults are set by `OpenAPIProvider`:
 | Property | Default |
 |---|---|
 | `readAllResources` | `true` |
-| `convertToOpenAPI31` | `true` |
+| `openAPI31` | `true` |
+| `convertToOpenAPI31` | `false` |
 | `alwaysResolveAppPath` | `true` |
 | `prettyPrint` | `true` |
+
+The default generates OpenAPI 3.1 directly at startup, including both JSON and YAML codecs.
+It avoids building a 3.0 model and then converting it. The standard configuration also
+avoids Swagger's JSON round trips for copying configuration. Seeded models, custom
+mapper processors/converters, sorted output and other advanced settings retain Swagger's
+full initialization path. Spec generation is not deferred to the first documentation request.
+
+A configuration file is a `SwaggerConfiguration` document, as shown above, and replaces
+the initial configuration; explicitly set `openAPI31: true` in it to select 3.1.
+SPI contributions run after file loading and are passed to the scanner, reader and context.
+To request 3.0, set `openAPI31(false).convertToOpenAPI31(false)` in the configuration SPI.
+The legacy conversion path remains available with `openAPI31(false).convertToOpenAPI31(true)`.
+
+Direct 3.1 uses Swagger's implicit-object semantics: an opaque type with no discovered
+properties can render as `{}` where the legacy conversion rendered `{"type":"object"}`.
+Consumers that depend on the previous document shape can select the legacy conversion
+through the SPI. The [benchmark and compatibility report](../../benchmarks/OPENAPI_OPTIMIZATION.md)
+records the observed differences and timing evidence.
 
 ## 🔍 Resource Scanning
 

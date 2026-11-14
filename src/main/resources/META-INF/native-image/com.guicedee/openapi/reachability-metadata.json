@@ -1,0 +1,661 @@
+{
+  "reflection": [
+    {
+      "type": "io.swagger.v3.oas.models.Components",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.ExternalDocumentation",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.OpenAPI",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.Operation",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.PathItem",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.PathItem$1",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.PathItem$HttpMethod",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.Paths",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.SpecVersion",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.annotations.OpenAPI30",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.annotations.OpenAPI31",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.callbacks.Callback",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.examples.Example",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.headers.Header",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.headers.Header$StyleEnum",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.info.Contact",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.info.Info",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.info.License",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.links.Link",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.links.LinkParameter",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.media.ArbitrarySchema",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.media.ArraySchema",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.media.BinarySchema",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.media.BooleanSchema",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.media.ByteArraySchema",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.media.ComposedSchema",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.media.Content",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.media.DateSchema",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.media.DateTimeLocalSchema",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.media.DateTimeSchema",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.media.Discriminator",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.media.DurationSchema",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.media.EmailSchema",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.media.Encoding",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.media.Encoding$StyleEnum",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.media.EncodingProperty",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.media.EncodingProperty$StyleEnum",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.media.FileSchema",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.media.IntegerSchema",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.media.JsonSchema",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.media.MapSchema",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.media.MediaType",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.media.NumberSchema",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.media.ObjectSchema",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.media.PasswordSchema",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.media.Schema",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.media.Schema$BynaryStringConversion",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.media.Schema$SchemaResolution",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.media.StringSchema",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.media.TimeLocalSchema",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.media.TimeSchema",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.media.UUIDSchema",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.media.XML",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.parameters.CookieParameter",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.parameters.HeaderParameter",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.parameters.Parameter",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.parameters.Parameter$StyleEnum",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.parameters.PathParameter",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.parameters.QueryParameter",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.parameters.RequestBody",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.responses.ApiResponse",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.responses.ApiResponses",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.security.OAuthFlow",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.security.OAuthFlows",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.security.Scopes",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.security.SecurityRequirement",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.security.SecurityScheme",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.security.SecurityScheme$In",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.security.SecurityScheme$Type",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.servers.Server",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.servers.ServerVariable",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.servers.ServerVariables",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    },
+    {
+      "type": "io.swagger.v3.oas.models.tags.Tag",
+      "condition": {
+        "typeReached": "com.guicedee.guicedservlets.openapi.implementations.OpenAPIProvider"
+      },
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true,
+      "allDeclaredFields": true
+    }
+  ]
+}

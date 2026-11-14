@@ -1,10 +1,7 @@
 package com.guicedee.guicedservlets.openapi.implementations;
 
+import com.guicedee.client.utils.Discovery;
 import com.guicedee.client.utils.ClassLoading;
-
-
-import com.guicedee.client.IGuiceContext;
-import io.github.classgraph.ScanResult;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Webhooks;
 import io.swagger.v3.oas.integration.IgnoredPackages;
@@ -19,11 +16,11 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * OpenAPI scanner that uses the Guice/ClassGraph scan result to discover
+ * OpenAPI scanner that uses registered discovery metadata and optional ClassGraph scanning to discover
  * resource and OpenAPI definition classes.
  *
  * <p>The scanner honors configuration-defined packages or classes and falls
- * back to a full scan that excludes known ignored packages.</p>
+ * back to discovery that excludes known ignored packages.</p>
  */
 @Log4j2
 public class GuicedOpenApiScanner implements OpenApiScanner
@@ -115,12 +112,23 @@ public class GuicedOpenApiScanner implements OpenApiScanner
         }
 
         final Set<Class<?>> classes;
-        ScanResult scanResult = IGuiceContext.instance()
-                                             .getScanResult();
-        classes = new HashSet<>(ClassLoading.loadClasses(scanResult.getClassesWithAnnotation(OpenAPIDefinition.class.getName())));
-        classes.addAll(ClassLoading.loadClasses(scanResult.getClassesWithAnnotation(Webhooks.class.getName())));
-        classes.addAll(ClassLoading.loadClasses(scanResult.getClassesWithAnnotation("jakarta.ws.rs.Path")));
-        classes.addAll(ClassLoading.loadClasses(scanResult.getClassesWithAnnotation("jakarta.ws.rs.ApplicationPath")));
+        classes = new HashSet<>(Discovery.annotatedClasses(OpenAPIDefinition.class));
+        classes.addAll(Discovery.annotatedClasses(Webhooks.class));
+        // Keep Jakarta REST optional: inspect annotation names without linking its API.
+        for (Class<?> registered : Discovery.registeredClasses()) {
+            for (var annotation : registered.getAnnotations()) {
+                String name = annotation.annotationType().getName();
+                if (name.equals("jakarta.ws.rs.Path") || name.equals("jakarta.ws.rs.ApplicationPath")) {
+                    classes.add(registered);
+                    break;
+                }
+            }
+        }
+        if (!Discovery.isSpiOnly()) {
+            var scan = Discovery.scanResult();
+            classes.addAll(ClassLoading.loadClasses(scan.getClassesWithAnnotation("jakarta.ws.rs.Path")));
+            classes.addAll(ClassLoading.loadClasses(scan.getClassesWithAnnotation("jakarta.ws.rs.ApplicationPath")));
+        }
         nextclass:
         for (Class<?> cls : classes)
         {
